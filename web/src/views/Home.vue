@@ -1,18 +1,33 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <StartBlock />
+    <PreSection1 />
+    <SectionPrice />
+    <PreSection2 />
+    <Section2 />
+    <Section3 />
+    <Section4 />
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-
+import StartBlock from '@/views/StartBlock.vue'
+import Section2 from '@/views/Section2.vue'
+import PreSection1 from '@/components/PreSection1.vue'
+import PreSection2 from '@/components/PreSection2.vue'
+import Section3 from '@/views/Section3.vue'
+import Section4 from '@/views/Section4.vue'
+import SectionPrice from '@/views/SectionPrice.vue'
 export default {
   name: 'Home',
   components: {
-    HelloWorld
+    StartBlock,
+    Section2,
+    Section3,
+    Section4,
+    PreSection1,
+    SectionPrice,
+    PreSection2
   }
 }
 </script>
