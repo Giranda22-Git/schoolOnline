@@ -2,23 +2,18 @@
     <section class="wrapper" id="sec3">
         <div class="wrapper-front">
             <div class="front">
-                <div class="animate__animated" id="sec3-animate">
-                    <h1>
-                        Курстан не үйренесіз?
-                    </h1>
+                <div class="anime animate__animated" id="sec3-animate">
+                    <div class="SVG_Text"></div>
                     <p>
-                        Шығармашылық қабілеттеріңізді шыңдауға
-                        <br><br>
-                        мүмкіндік аласыз;
-                        <br><br>
-                        Бойыңыздағы дарынды ашып,
-                        <br><br>
-                        түрлі образға ене білу қабілетін дамытасыз;
-                        <br><br>
-                        Айтыскерлік, әншілік, әртістік пен актерлік өнерді
-                        <br><br>
-                        ұштастырудың қыр-сырын меңгересіз.
+                        <span class="first"> КУРСТЫҢ БАҒАСЫ </span> <br>
+                        <span class="second"> <span class="price"> 14 000 </span> ТЕҢГЕ </span>  <br>
+                        <span class="third"> Өз мүмкіндігіңді жіберіп алма! <br>
+                        Курсты дәл қазір сатып ал! </span>
+                        
                     </p>
+                    <button>
+                        <span> ТӨЛЕМГЕ ӨТУ </span>
+                    </button>
                 </div>
             </div>
             <div class="hover-block">
@@ -35,7 +30,7 @@ export default {
     mounted() {
         $('.hover-block').hover(
             function () {
-                $('.wrapper-front').css('opacity', '0.5')
+                $('.wrapper-front').css('opacity', '0.6')
             },
             function () {
                 $('.wrapper-front').css('opacity', '0.8')
@@ -49,6 +44,17 @@ export default {
     @font-face
         font-family: SuitcaseTypeFoundryAtypRegularVariable
         src: url(../assets/AtypRegularVariable/SuitcaseTypeFoundryAtypRegularVariable.ttf)
+    
+    @font-face
+        font-family: GothamBold
+        src: url(../assets/Gotham/GothamBold.ttf)
+    
+    @font-face
+        font-family: GothamLight
+        src: url(../assets/Gotham/GothamLight.ttf)
+    @font-face
+        font-family: GothamMedium
+        src: url(../assets/Gotham/GothamMedium.ttf)
     .hover-block
         width: 30vw
         height: 70vh
@@ -76,19 +82,40 @@ export default {
             align-items: flex-start
             justify-content: center
             opacity: 1 !important
-            h1
-                font-family: SuitcaseTypeFoundryAtypRegularVariable
-                font-weight: 800
-                font-size: 4vh
-                color: #FA1451
-                padding-left: 5vw
-                padding-bottom: 5vh
+            .anime
+                width: 100%
+                height: 100%
+            .SVG_Text
+                width: 100%
+                height: 20%
+                background: url(../assets/section3/secondElement.svg) -10% 45% no-repeat
             p
-                font-family: SuitcaseTypeFoundryAtypRegularVariable
-                font-weight: 400
-                font-size: 2.1vh
                 color: #FFF
                 text-align: left
-                padding-left: 5vw
+                .first
+                    font-size: 4vh
+                    font-family: GothamBold
+                .second
+                    font-size: 6vh
+                    font-family: GothamMedium
+                    .price
+                        color: rgb(245, 0, 65)
+                .third
+                    font-family: GothamLight
+                    font-size: 2.2vh
+            button
+                font-family: GothamBold
+                font-size: 6vh
+                color: white
+                background: rgb(245, 0, 65)
+                border: none
+                padding: 1.5% 2% 1% 2%
+                border-radius: 22px
+                box-shadow: 0px 0px 23px #FA1452;
+                margin-top: 6%
+                
+                span
+                    width: 100%
+                    height: auto
 
 </style>

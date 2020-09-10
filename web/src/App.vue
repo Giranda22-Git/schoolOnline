@@ -20,7 +20,7 @@ export default {
     TheHeader
   },
   mounted() {
-    let 
+    let
       sec2 = $('#sec2').offset().top,
       sec3 = $('#sec3').offset().top,
       sec4 = $('#sec4').offset().top
@@ -36,7 +36,6 @@ export default {
       if (pageYOffset >= sec4 - ($('#sec4').height() - ($('#sec4').height() / 3))){
         $('#sec4-animate').addClass('animate__flipInX')
       }
-      
     });
   }
 }
