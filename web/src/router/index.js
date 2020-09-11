@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import Kaspi_pay from '../views/Kaspi_pay.vue'
+
 
 Vue.use(VueRouter)
 
@@ -9,6 +11,11 @@ Vue.use(VueRouter)
     path: '/',
     name: 'Home',
     component: Home
+  },
+  {
+    path: '/kaspi-pay',
+    name: 'Kaspi_pay',
+    component: Kaspi_pay
   }
 ]
 

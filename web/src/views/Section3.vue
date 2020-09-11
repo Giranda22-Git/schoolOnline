@@ -87,7 +87,7 @@ export default {
                 height: 100%
             .SVG_Text
                 width: 100%
-                height: 20%
+                height: 25%
                 background: url(../assets/section3/secondElement.svg) -10% 45% no-repeat
             p
                 color: #FFF

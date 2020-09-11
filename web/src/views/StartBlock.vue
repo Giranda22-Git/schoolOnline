@@ -35,7 +35,6 @@ export default {
     width: 100vw
     height: 100vh
     background-color: #1D1D1D
-    
     .front
       max-width: 1440px
       height: 100%
@@ -102,7 +101,29 @@ export default {
           color: white
           font-size: 2vh
           font-weight: 100
-          
-
-        
+  @media screen and ( max-width: 480px )
+    .wrapper
+      height: 450px !important
+      .front
+        max-width: 1440px
+        .left-content-wrapper
+          display: none !important
+        .right-content-wrapper
+          width: 100vw !important
+          height: 100% !important
+          .Comp1
+          .Comp2
+          .Comp3
+          .Comp4
+            height: 40% !important
+            background: url(../assets/Comp/Comp1_mobile.svg) center no-repeat !important
+            position: absolute !important
+            top: 35% !important
+          .Comp5
+            font-size: 3vh !important
+            bottom: 28%
+            font-weight: 1000000 !important
+          .Comp6
+            font-size: 1.5vh !important
+            bottom: 12% !important
 </style>
