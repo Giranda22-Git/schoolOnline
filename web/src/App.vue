@@ -1,14 +1,17 @@
 <template>
   <div id="app">
     <TheHeader />
+    <Profile_modal class="prof_modal" />
     <div class="account-fixed">
       
     </div>
+
     <router-view/>
   </div>
 </template>
 
 <script>
+import Profile_modal from '@/components/Profile_modal.vue'
 import TheHeader from '@/components/TheHeader.vue'
 const $ = require( "jquery" )
 export default {
@@ -17,7 +20,8 @@ export default {
 
   }),
   components: {
-    TheHeader
+    TheHeader,
+    Profile_modal
   },
   mounted() {
     let
@@ -49,4 +53,6 @@ export default {
     margin: 0px
     padding: 0px
     list-style-type: none
+  .prof_modal
+    display: none
 </style>

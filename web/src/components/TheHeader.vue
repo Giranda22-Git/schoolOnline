@@ -2,6 +2,11 @@
     <div class="wrapper">
         <div class="front">
             <div class="left-header-content">
+                <div class="mobileMenu">
+                    <div class="buble">
+
+                    </div>
+                </div>
                 <div class="logo"></div>
                 <nav>
                     <ul>
@@ -31,11 +36,7 @@
 
                     </div>
                 </div>
-                <div class="mobileMenu">
-                    <div class="buble">
-
-                    </div>
-                </div>
+                
             </div>
         </div>
     </div>
@@ -43,7 +44,8 @@
 
 <script>
 export default {
-    name: 'TheHeader'
+    name: 'TheHeader',
+    
 }
 </script>
 
@@ -53,25 +55,27 @@ export default {
         src: url(../assets/AtypRegularVariable/SuitcaseTypeFoundryAtypRegularVariable.ttf)
     .mobileMenu
         width: 55px !important
-        height: 80% !important
-        margin-right: 5%
+        height: 100% !important
+        margin-left: 5%
         display: flex
         align-items: center
         justify-content: center
         cursor: pointer
         display: none
+        z-index: 100
         .buble
             width: 70% !important
             height: 2px !important
-            background-color: #fff
+            background-color: #FA1451
             position: relative
-            
+            z-index: 100
             &:before, &:after
                 content: ''
                 width: 7.5vw !important
                 height: 2px !important
-                background-color: #fff
+                background-color: #FA1451
                 position: absolute
+                z-index: 100
             &:before
                 top: -500%
             &:after
@@ -87,7 +91,7 @@ export default {
         left: 0
         top: 0
         background-color: #3D3D3D;
-        z-index: 100
+        z-index: 98
 
         .front
             max-width: 1440px
@@ -190,7 +194,7 @@ export default {
         nav
             display: none !important
         .logo
-            width: 40% !important
+            width: 100% !important
         .telegram,
         .instagram,
         .youtube
@@ -198,9 +202,7 @@ export default {
         .left-header-content
             width: 40% !important
         .right-header-content
-            width: 60% !important
-            display: flex !important
-            justify-content: flex-end !important
+            display: none !important
         .mobileMenu
             display: flex 
 
