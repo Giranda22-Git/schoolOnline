@@ -1,10 +1,10 @@
 <template>
   <div id="app">
-    <TheHeader />
+    <TheHeader :isAutorized="autorized" :autorizedData="autorized_data" />
     <Profile_modal class="prof_modal" />
     <div class="account-fixed"></div>
     <transition name="fade">
-      <router-view/>
+      <router-view @autorization="autorization" />
     </transition>
     <TheFooter />
   </div>
@@ -18,7 +18,8 @@ const $ = require( "jquery" )
 export default {
   name: 'mainApp',
   data: () => ({
-    
+    autorized: false,
+    autorized_data: new Object
   }),
   components: {
     TheHeader,
@@ -43,6 +44,30 @@ export default {
         $('#sec4-animate').addClass('animate__flipInX')
       }
     });*/
+    if (localStorage.getItem('autorize-email') != null) {
+      const user = {
+        firstName: localStorage.getItem('autorize-firstname'),
+        lastName: localStorage.getItem('autorize-lastname'),
+        patronymic: localStorage.getItem('autorize-patronymic'),
+        email: localStorage.getItem('autorize-email'),
+        phone: localStorage.getItem('autorize-phone'),
+        password: localStorage.getItem('autorize-password'),
+        privilege: localStorage.getItem('autorize-privilege')
+      }
+      this.autorization(user)
+    }
+    
+  },
+  methods: {
+    autorization(data) {
+      this.autorized = true
+      this.autorized_data = data
+    },
+    logOut(){
+      this.autorized = false
+      for (var data in this.autorized_data) delete this.autorized_data[data]
+      localStorage.clear()
+    }
   }
 }
 </script>
@@ -60,6 +85,7 @@ export default {
     list-style-type: none
   body
     background-color: #1D1D1D
+    overflow-x: hidden
   .fade-enter-active, .fade-leave-active
     transition-property: opacity
     transition-duration: .3s

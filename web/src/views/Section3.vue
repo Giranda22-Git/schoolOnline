@@ -12,7 +12,7 @@
                         
                     </p>
                     <button>
-                        <span> ТӨЛЕМГЕ ӨТУ </span>
+                        <router-link to="/kaspi-pay"> ТӨЛЕМГЕ ӨТУ </router-link>
                     </button>
                 </div>
             </div>
@@ -116,9 +116,9 @@ export default {
                 outline: none
                 cursor: pointer
                 
-                span
-                    width: 100%
-                    height: auto
+                a
+                    text-decoration: none
+                    color: white
     @media screen and ( max-width: 480px )
         .hover-block
             height: 31.5vh !important
@@ -128,9 +128,8 @@ export default {
             height: 40vh !important
             background-size: 100% !important
             .front
-                height: 48vh !important
+                height: 40vh !important
                 .anime
-                    margin-top: 4vh
                     .SVG_Text
                         background: url(../assets/section3/secondElement_mobile.svg) !important
                         height: 10vh

@@ -32,11 +32,18 @@
                 <div class="telegram"></div>
                 <div class="instagram"></div>
                 <div class="youtube">
-                    <div class="account-fixed">
-                        <router-link to="/Register"></router-link>
+                    <div class="account-fixed-register" v-show="!isAutorized">
+                        <router-link to="/Register" ></router-link>
                     </div>
+                    <router-link to="/Account" class="account-fixed-autorized" v-show="isAutorized">
+                        <div class="passed">
+                            <div class="autorized" >
+                                <div class="username"> {{ autorizedData.lastName }} {{ autorizedData.firstName }} </div>
+                                <div class="emailadd"> {{ autorizedData.email }} </div>
+                            </div>
+                        </div>
+                    </router-link>
                 </div>
-                
             </div>
         </div>
     </div>
@@ -45,11 +52,27 @@
 <script>
 export default {
     name: 'TheHeader',
-    
+    data: () => ({
+        name: localStorage.getItem('autorize-lastname') + ' ' + localStorage.getItem('autorize-firstname'),
+        emailadd: localStorage.getItem('autorize-email')
+    }),
+    props: {
+        isAutorized: {
+            type: Boolean,
+            default: false
+        },
+        autorizedData: {
+            type: Object,
+            default: () => {}
+        }
+    }
 }
 </script>
 
 <style lang="sass" scoped>
+    @font-face
+        font-family: GothamLight
+        src: url(../assets/Gotham/GothamLight.ttf)
     @font-face
         font-family: SuitcaseTypeFoundryAtypRegularVariable
         src: url(../assets/AtypRegularVariable/SuitcaseTypeFoundryAtypRegularVariable.ttf)
@@ -128,7 +151,7 @@ export default {
                     cursor: pointer
                     position: relative
                             
-                .account-fixed
+                .account-fixed-register
                     width: 3.8vw
                     height: 3.8vw
                     position: absolute
@@ -144,6 +167,50 @@ export default {
                         width: 100%
                         height: 100%
                         display: block
+
+                    &:hover
+                        transform: scale(1.15)
+                .account-fixed-autorized
+                    width: 3.8vw
+                    height: 3.8vw
+                    position: absolute
+                    right: 15vw
+                    top: 8vh
+                    border-radius: 50%
+                    border: 1px solid #FFF
+                    background: #3D3D3D url(../assets/user1.svg) center no-repeat
+                    background-size: 45%
+                    animation: radial-pulse 1s infinite;
+                    transition: .5s
+                    display: block
+                    .passed
+                        position: relative
+                        width: 100%
+                        height: 100%
+
+                        .autorized
+                            width: 400%
+                            height: 100%
+                            display: flex
+                            position: absolute
+                            right: -400%
+                            bottom: 0
+                            flex-direction: column
+                            justify-content: center
+                            align-items: flex-start
+                            .username, .emailadd
+                                width: 100%
+                                height: 50%
+                                color: white
+                                font-family: GothamLight
+                                text-align: left
+                                padding-left: 5%
+                                line-height: 2.5vh
+                                font-size: 1.6vh
+                                white-space: nowrap
+                            .username
+                                text-transform: capitalize
+
 
                     &:hover
                         transform: scale(1.15)

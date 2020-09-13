@@ -10,17 +10,17 @@
                         <div class="Two" @click="Two">2</div>
                     </div>
                     <form class="left-bottom-content-1" onsubmit="return false">
-                        <input type="text" class="name" placeholder="аты-жөні" required>
+                        <input type="text" class="register-name" placeholder="аты-жөні" required>
                         <input type="number" class="phone" placeholder="ұялы телефон" required>
                         <input type="email" class="email" placeholder="пошта" required>
                         <input type="password" class="password" placeholder="пароль" required>
                         <button class="HZ" @click="Registration">тіркелу</button>
                         <button class="SignIn" @click="Two" onclick="event.preventDefault()" >кіру</button>
                     </form>
-                    <form class="left-bottom-content-2">
+                    <form class="left-bottom-content-2" onsubmit="return false">
                         <input type="email" class="auto-email" placeholder="пошта" required>
                         <input type="password" class="auto-password" placeholder="пароль" required>
-                        <button class="SignIn">кіру</button>
+                        <button class="SignIn" @click="Autorization">кіру</button>
                     </form>
                 </div>
             </div>
@@ -38,6 +38,7 @@ const $ = require( "jquery" )
 export default {
     name: 'Register',
     data: () => ({
+        register: null,
         res: null
     }),
     methods: {
@@ -57,9 +58,63 @@ export default {
             $('.left-bottom-content-1').css({'z-index': '101', 'opacity': '0'})
             $('.left-bottom-content-2').css({'z-index': '102', 'opacity': '1'})
         },
+        async Autorization() {
+            await axios.get(`http://localhost:3000/users/email/${$('.auto-email').val()}`)
+            .then( response => {
+                if(response.data == "") {
+                    sweetalert2.fire({
+                        title: 'Ошибка',
+                        text: `такого пользователя не существует`,
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    })
+                }
+                else {
+                    this.res = response.data
+                }
+            })
+            .catch(function (error) {
+                console.log(error)
+            })
+            
+            if ( $('.auto-password').val() == this.res.password ) {
+                if (localStorage.getItem('autorize-email') == this.res.email)
+                {
+                    sweetalert2.fire({
+                        title: 'OK',
+                        text: `Вы уже авторизированны`,
+                        icon: 'info',
+                        confirmButtonText: 'OK'
+                    })
+                } else {
+                    localStorage.setItem('autorize-firstname', this.res.firstName)
+                    localStorage.setItem('autorize-lastname', this.res.lastName)
+                    localStorage.setItem('autorize-patronymic', this.res.patronymic)
+                    localStorage.setItem('autorize-email', this.res.email)
+                    localStorage.setItem('autorize-phone', this.res.phone)
+                    localStorage.setItem('autorize-password', this.res.password)
+                    localStorage.setItem('autorize-privilege', this.res.privilege)
+
+                    sweetalert2.fire({
+                        title: 'OK',
+                        text: `С возвращением ${this.res.lastName} ${this.res.firstName} ${this.res.patronymic}`,
+                        icon: 'success',
+                        confirmButtonText: 'OK'
+                    })
+                    this.$emit('autorization', this.res)
+                }
+            } else {
+                sweetalert2.fire({
+                    title: 'Ошибка',
+                    text: `пароль введён неверно`,
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                })
+            }
+        },
         async Registration() {
             const 
-                name = $('.name').val().split(' '),
+                name = $('.register-name').val().split(' '),
                 email = $('.email').val(),
                 password = $('.password').val(),
                 phone = $('.phone').val()
@@ -100,15 +155,9 @@ export default {
                 password: password,
                 phone: phone
             }
-            /*
-    "firstName": "xcdgsrrf",
-	"lastName": "wewee",
-	"patronymic": "wew",
-	"email": "sdcsxcsd@bk.ru",
-	"password": "garganzola25",
-    "privilege": "sjdnjwdjs"*/
+
             await axios.post('http://localhost:3000/users', params)
-            .then( response => {this.res = response.data} )
+            .then( response => { this.register = response.data } )
             .catch(function (error) {
                 sweetalert2.fire({
                     title: 'Ошибка',
@@ -117,13 +166,23 @@ export default {
                     confirmButtonText: 'OK'
                 })
             })
+            .then(
+                sweetalert2.fire({
+                    title: 'OK',
+                    text: `Поздравляем ${params.lastName} ${params.firstName} ${params.patronymic} вы успешно зарегистрированы`,
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                }),
 
-            sweetalert2.fire({
-                title: 'OK',
-                text: `Поздравляем ${this.res.ops[0].lastName} ${this.res.ops[0].firstName} ${this.res.ops[0].patronymic} вы успешно зарегистрированы`,
-                icon: 'success',
-                confirmButtonText: 'OK'
-            })
+                localStorage.setItem('autorize-firstname', params.firstName),
+                localStorage.setItem('autorize-lastname', params.lastName),
+                localStorage.setItem('autorize-patronymic', params.patronymic),
+                localStorage.setItem('autorize-email', params.email),
+                localStorage.setItem('autorize-phone', params.phone),
+                localStorage.setItem('autorize-password', params.password),
+                localStorage.setItem('autorize-privilege', params.privilege),
+                this.$emit('autorization', params)
+            )
         }
     }
 }

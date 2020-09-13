@@ -21,6 +21,11 @@ Vue.use(VueRouter)
     path: '/Register',
     name: 'Register',
     component: () => import('../views/Register.vue')
+  },
+  {
+    path: '/Account',
+    name: 'Account',
+    component: () => import('../views/Account.vue')
   }
 ]
 

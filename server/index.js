@@ -83,6 +83,15 @@ async function init(){
       })
     })
 
+    app.get('/users/email/:mail', (req, res) => {
+      res.setHeader('Content-Type', 'application/json')
+
+      db.collection('users').findOne( { email: req.params.mail }, (err, doc) => {
+        if (err) return res.sendStatus(500)
+        res.send(doc)
+      })
+    })
+
     app.put('/users/:id', (req, res) => {
       res.setHeader('Content-Type', 'application/json')
       db.collection('users').findOne( { _id: ObjectID( req.params.id ) }, (err, doc) => {
