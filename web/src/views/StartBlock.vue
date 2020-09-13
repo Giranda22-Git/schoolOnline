@@ -103,7 +103,7 @@ export default {
           font-weight: 100
   @media screen and ( max-width: 480px )
     .wrapper
-      height: 450px !important
+      height: 60vh !important
       .front
         max-width: 1440px
         .left-content-wrapper
@@ -112,8 +112,11 @@ export default {
           width: 100vw !important
           height: 100% !important
           .Comp1
+            background-size: 92.5% !important
           .Comp2
+            background-size: 92.5% !important
           .Comp3
+            background-size: 92.5% !important
           .Comp4
             height: 40% !important
             background: url(../assets/Comp/Comp1_mobile.svg) center no-repeat !important

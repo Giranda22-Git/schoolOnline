@@ -7,7 +7,7 @@
                     <p>
                         <span class="first"> КУРСТЫҢ БАҒАСЫ </span> <br>
                         <span class="second"> <span class="price"> 14 000 </span> ТЕҢГЕ </span>  <br>
-                        <span class="third"> Өз мүмкіндігіңді жіберіп алма! <br>
+                        <span class="third"> Өз мүмкіндігіңді жіберіп алма! <br></span><span class="third">
                         Курсты дәл қазір сатып ал! </span>
                         
                     </p>
@@ -119,5 +119,34 @@ export default {
                 span
                     width: 100%
                     height: auto
-
+    @media screen and ( max-width: 480px )
+        .hover-block
+            height: 31.5vh !important
+        .wrapper
+            height: 40vh !important
+        .wrapper-front
+            height: 40vh !important
+            background-size: 100% !important
+            .front
+                height: 48vh !important
+                .anime
+                    margin-top: 4vh
+                    .SVG_Text
+                        background: url(../assets/section3/secondElement_mobile.svg) !important
+                        height: 10vh
+                        background-size: 100% !important
+                        background-position-y: 28% !important
+                    p
+                        .first
+                            margin-left: 2vh
+                            font-size: 3vh
+                        .second
+                            margin-left: 2vh
+                            font-size: 4vh
+                        .third
+                            padding-left: 2vh
+                            font-size: 1.5vh
+                    button
+                        margin-left: 2vh
+                        font-size: 3.2vh !important   
 </style>

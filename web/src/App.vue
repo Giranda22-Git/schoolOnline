@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <TheHeader />
+    <Profile_modal class="prof_modal" />
     <div class="account-fixed"></div>
     <transition name="fade">
       <router-view/>
@@ -10,6 +11,7 @@
 </template>
 
 <script>
+import Profile_modal from '@/components/Profile_modal.vue'
 import TheHeader from '@/components/TheHeader.vue'
 import TheFooter from '@/components/TheFooter.vue'
 const $ = require( "jquery" )
@@ -20,7 +22,8 @@ export default {
   }),
   components: {
     TheHeader,
-    TheFooter
+    TheFooter,
+    Profile_modal
   },
   mounted() {
     /*let
@@ -66,4 +69,6 @@ export default {
 
   .fade-enter, .fade-leave-active
     opacity: 0
+  .prof_modal
+    display: none
 </style>

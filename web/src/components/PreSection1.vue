@@ -8,7 +8,6 @@
             -	шығармашылық қабілеттеріңізді шыңдауға мүмкіндік аласыз; <br>
             -	бойыңыздағы дарынды ашып, түрлі образға ене білу қабілетін дамытасыз; <br>
             -	айтыскерлік, әншілік, әртістік және актерлік өнерді ұштастырудың қыр-сырын меңгересіз <br>
-            КУРС БАҒДАРЛАМАСЫ:
           </div>
         </div>
     </section>
@@ -44,4 +43,12 @@ export default {
         font-family: GothamLight
         font-size: 2vh
         padding-left: 4%
+  @media screen and ( max-width: 480px )
+    .wrapper
+      height: 17.5vh !important
+      .front
+        .SVG_text
+          background-size: 95%
+        .Text
+          font-size: 3vw !important
 </style>

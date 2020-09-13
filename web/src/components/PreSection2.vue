@@ -49,4 +49,14 @@ export default {
         font-family: GothamLight
         font-size: 2vh
         padding-left: 4%
+  @media screen and ( max-width: 480px )
+    .wrapper
+      .front
+        .SVG_text
+          background-size: 100% !important
+        .Text
+          color: white
+          font-family: GothamLight
+          font-size: 3vw !important
+          padding-left: 4%
 </style>

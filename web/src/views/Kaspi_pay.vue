@@ -113,13 +113,13 @@ export default {
             .toley
                 font-family: GothamLight
                 color: #FA1452
-                font-size: 6.5vh
+                font-size: 3.4vw
                 text-align: center
                 line-height: 20vh
             .number
                 font-family: GothamLight
                 color: black
-                font-size: 6vh
+                font-size: 3.4vw
                 margin-top: -4vh
             img
                 margin-top: 2vh
@@ -158,4 +158,9 @@ export default {
             border: none !important
             .toley
                 line-height: 15vh !important
+                font-size: 4vh !important
+            .number
+                font-size: 3.5vh !important
+            img
+                height: 55% !important
 </style>

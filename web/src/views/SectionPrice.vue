@@ -132,6 +132,49 @@ export default {
                 color: #FA1452
                 font-family: GothamBold
                 font-size: 1.8vh !important
+  @media screen and ( max-width: 480px )
+    .wrapper
+      .front
+        padding: 2.5% !important
+        .SVG_Text
+          background-position-y: 45% !important
+          background-size: 100% !important
+          height: 9%
+        .start_wrapper
+          width: 100%
+          height: 100%
+          display: block !important
+          .column_1, .column_2
+            height: auto
+            width: 100%
+            .row
+              width: 100%
+              height: 18vh
+              display: flex
+              justify-content: center
+              align-items: center
+              .left
+                display: none !important
+              .left1
+                display: none !important
+              .left2
+                display: none !important
+              .left3
+                display: none !important
+              .left4
+                display: none !important
+              .left5
+                display: none !important
+              .right
+                width: 100vw
+                height: 14vh !important
+                color: white
+                font-family: GothamLight
+                font-size: 2vh
 
+                span
+                  color: #FA1452
+                  font-family: GothamBold
+                  font-size: 1.8vh !important
 
 </style>

@@ -20,11 +20,11 @@
     -	100 жуық ән мәтіндерінің авторы <br> <br>
     -	160-тан астам әннің орындаушысы <br> <br>
     -	 «Жыл таңдауы» ұлттық музыкалық марапатының жүлдегері <br> <br>
-    -	5 күн қатарынан «Ай-хай-25» атты концерт өткізіп, рекорд <br>
+    -	5 күн қатарынан «Ай-хай-25» атты концерт өткізіп, рекорд <br class="media_del">
     орнатқан әртіс <br> <br>
-    -	«Ұлы дала баласы» реалити-шоуы 20 мың көрермен жинап <br>
+    -	«Ұлы дала баласы» реалити-шоуы 20 мың көрермен жинап <br class="media_del">
     рекордтық көрсеткіштерге ие болған <br> <br>
-    -	«Ұлы Дала комедиясы» фильмінің продюсері, режиссері әрі <br>
+    -	«Ұлы Дала комедиясы» фильмінің продюсері, режиссері әрі <br class="media_del">
     басты рөлді сомдаған актері <br> <br>
     -	Ғаламторда ең жиі ізделетін танымал тұлғалардың бірі <br> <br>
     -	Сүйікті ұл, абзал жар, 3 қыз және 1 ұл тәрбиелеп отырған қамқор әке <br> <br>
@@ -90,7 +90,7 @@ export default {
                     width: 17vh
                     height: 17vh
                     border-radius: 50%
-                    border: 7px solid #FA1452;
+                    border: 7px solid #FA1452
                     justify-content: center
                     align-items: center
                     font-size: 3vh
@@ -142,4 +142,32 @@ export default {
                         .second
                             font-size: 3.7vh
                             font-family: GothamBold
+    @media screen and ( max-width: 480px )
+        .wrapper
+            height: 100vh !important
+            .top-content-wrapper
+                width: 100% !important
+                height: 13% !important
+                .time
+                    width: 10vh !important
+                    height: 10vh !important
+                    border: 4px solid #FA1452 !important
+                    font-size: 1.6vh !important
+            .bottom-content-wrapper
+                .right-content-wrapper
+                    display: none !important
+                .left-content-wrapper
+                    width: 100% !important
+                    padding: 2% !important
+                    .SVG_Text
+                        margin-left: 5vh !important                        
+                        background-size: 100% !important
+                    .text
+                        font-size: 1.6vh !important
+                        line-height: 2.5vh !important
+                        .second
+                            font-size: 3vh !important
+                    .media_del
+                        display: none !important
+
 </style>

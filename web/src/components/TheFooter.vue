@@ -106,5 +106,7 @@ export default {
                     .divs *
                         width: 14%
                         height: 100%
-
+    @media screen and ( max-width: 480px )
+        .wrapper
+            display: none !important
 </style>
