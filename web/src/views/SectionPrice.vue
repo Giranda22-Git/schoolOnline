@@ -1,11 +1,11 @@
 <template>
-  <section class="wrapper">
+  <section class="wrapper" id="secPrice">
     <div class="front">
       <div class="SVG_Text">
 
       </div>
       <div class="start_wrapper">
-        <div class="column_1">
+        <div class="column_1 animate__animated" id="secPrice-left-animate">
           <div class="row">
             <div class="left1 left"></div>
             <div class="right">
@@ -37,7 +37,7 @@
             </div>
           </div>
         </div>
-        <div class="column_2">
+        <div class="column_2 animate__animated" id="secPrice-right-animate">
           <div class="row">
             <div class="left4 left"></div>
             <div class="right">
