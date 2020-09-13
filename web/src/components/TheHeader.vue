@@ -2,7 +2,7 @@
     <div class="wrapper">
         <div class="front">
             <div class="left-header-content">
-                <div class="logo"></div>
+                <div class="logo"> <router-link to="/"></router-link></div>
                 <nav>
                     <ul>
                         <li>
@@ -28,7 +28,7 @@
                 <div class="instagram"></div>
                 <div class="youtube">
                     <div class="account-fixed">
-
+                        <router-link to="/Register"></router-link>
                     </div>
                 </div>
                 <div class="mobileMenu">
@@ -87,7 +87,7 @@ export default {
         left: 0
         top: 0
         background-color: #3D3D3D;
-        z-index: 100
+        z-index: 200
 
         .front
             max-width: 1440px
@@ -136,9 +136,14 @@ export default {
                     background-size: 45%
                     animation: radial-pulse 1s infinite;
                     transition: .5s
+                    a
+                        width: 100%
+                        height: 100%
+                        display: block
 
                     &:hover
                         transform: scale(1.15)
+                    
 
 
 
@@ -147,6 +152,10 @@ export default {
                 height: 100%
                 background: url(../assets/Comp6_000001.svg) center no-repeat
                 cursor: pointer
+                a
+                    width: 100%
+                    height: 100%
+                    display: block
             nav
                 min-width: 80%
                 height: 100%

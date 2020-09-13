@@ -1,26 +1,29 @@
 <template>
   <div id="app">
     <TheHeader />
-    <div class="account-fixed">
-      
-    </div>
-    <router-view/>
+    <div class="account-fixed"></div>
+    <transition name="fade">
+      <router-view/>
+    </transition>
+    <TheFooter />
   </div>
 </template>
 
 <script>
 import TheHeader from '@/components/TheHeader.vue'
+import TheFooter from '@/components/TheFooter.vue'
 const $ = require( "jquery" )
 export default {
   name: 'mainApp',
   data: () => ({
-
+    
   }),
   components: {
-    TheHeader
+    TheHeader,
+    TheFooter
   },
   mounted() {
-    let
+    /*let
       sec2 = $('#sec2').offset().top,
       sec3 = $('#sec3').offset().top,
       sec4 = $('#sec4').offset().top
@@ -36,7 +39,7 @@ export default {
       if (pageYOffset >= sec4 - ($('#sec4').height() - ($('#sec4').height() / 3))){
         $('#sec4-animate').addClass('animate__flipInX')
       }
-    });
+    });*/
   }
 }
 </script>
@@ -45,8 +48,22 @@ export default {
   @import url(../node_modules/animate.css/animate.css)
   *
     box-sizing: border-box !important
+  html
+    scroll-behavior: smooth
+    overflow-x: hidden !important
   body, ul, h1, p
     margin: 0px
     padding: 0px
     list-style-type: none
+  body
+    background-color: #1D1D1D
+  .fade-enter-active, .fade-leave-active
+    transition-property: opacity
+    transition-duration: .3s
+
+  .fade-enter-active
+    transition-delay: .3s
+
+  .fade-enter, .fade-leave-active
+    opacity: 0
 </style>

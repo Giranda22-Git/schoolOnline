@@ -16,6 +16,11 @@ Vue.use(VueRouter)
     path: '/kaspi-pay',
     name: 'Kaspi_pay',
     component: Kaspi_pay
+  },
+  {
+    path: '/Register',
+    name: 'Register',
+    component: () => import('../views/Register.vue')
   }
 ]
 

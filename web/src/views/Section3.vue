@@ -113,6 +113,8 @@ export default {
                 border-radius: 22px
                 box-shadow: 0px 0px 23px #FA1452;
                 margin-top: 6%
+                outline: none
+                cursor: pointer
                 
                 span
                     width: 100%
