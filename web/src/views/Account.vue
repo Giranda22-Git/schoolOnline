@@ -32,12 +32,11 @@
                 <div class="Comp3"></div>
                 <div class="Comp4"></div>
                 <div class="Comp5">Басталуы: 30 қыркүйек</div>
-                <button>
-                    <router-link to="/kaspi-pay"> ТӨЛЕМГЕ ӨТУ </router-link>
-                </button>
-                <div class="Comp6"></div>
+                <router-link to="/kaspi-pay" v-if="autorizedData.privilege == 'user' "> ТӨЛЕМГЕ ӨТУ </router-link>
+                <router-link to="/admin" v-if="autorizedData.privilege == 'admin' "> Admin </router-link>
+                <div @click="open" class="Comp6"></div>
             </div>
-            <modalSettings class="modalSettings" />
+            <modalSettings v-show="isModalVisible" @close="close" :autorizedData="autorizedData" class="modalSettings" @autorized="autorized" />
         </div>
     </div>
 </template>
@@ -46,9 +45,44 @@
 import modalSettings from '@/components/modalSettings.vue'
 export default {
     name: 'Account',
+    data: () => ({
+        isModalVisible: false
+    }),
     components: {
         modalSettings
+    },
+    props: {
+        autorizedData: {
+            type: Object,
+            default: () => {}
+        }
+    },
+    methods: {
+        autorized(data) {
+            this.$emit('autorized', data)
+        },
+        close() {
+            this.isModalVisible = false
+        },
+        open() {
+            this.isModalVisible = true
+        }
+    },
+    mounted() {
+        if (localStorage.getItem('autorize-email') != null) {
+            const user = {
+                firstName: localStorage.getItem('autorize-firstname'),
+                lastName: localStorage.getItem('autorize-lastname'),
+                patronymic: localStorage.getItem('autorize-patronymic'),
+                email: localStorage.getItem('autorize-email'),
+                phone: localStorage.getItem('autorize-phone'),
+                password: localStorage.getItem('autorize-password'),
+                privilege: localStorage.getItem('autorize-privilege')
+            }
+            this.$emit('autorization', user)
+        }
     }
+    
 }
 </script>
 
@@ -122,7 +156,7 @@ export default {
                 width: 60%
                 height: 100%
                 position: relative
-                z-index: 10
+                z-index: 1
                 .Comp1
                     width: 60%
                     height: 40%
@@ -176,9 +210,10 @@ export default {
                     background-size: 90%
                     cursor: pointer
                     transition: .3s
+                    z-index: 5
                     &:hover
                         transform: scale(1.2)
-                button
+                a
                     font-family: GothamBold
                     font-size: 2.5vh
                     color: white
@@ -195,9 +230,10 @@ export default {
                     position: absolute
                     right: 0
                     top: 15%
-                
-                    a
-                        text-decoration: none
-                        color: white
+                    z-index: 2
+                    text-decoration: none
+                    color: white
+                    display: block
+                    text-align: center
     
 </style>

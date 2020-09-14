@@ -210,6 +210,7 @@ export default {
                                 white-space: nowrap
                             .username
                                 text-transform: capitalize
+                                font-size: 2.1vh
 
 
                     &:hover

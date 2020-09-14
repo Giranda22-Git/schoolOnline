@@ -83,10 +83,21 @@ export default {
     mounted(){
         if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
             this.screen = false
-            console.log('123')
         }
         else{
             this.screen = true
+        }
+        if (localStorage.getItem('autorize-email') != null) {
+            const user = {
+                firstName: localStorage.getItem('autorize-firstname'),
+                lastName: localStorage.getItem('autorize-lastname'),
+                patronymic: localStorage.getItem('autorize-patronymic'),
+                email: localStorage.getItem('autorize-email'),
+                phone: localStorage.getItem('autorize-phone'),
+                password: localStorage.getItem('autorize-password'),
+                privilege: localStorage.getItem('autorize-privilege')
+            }
+            this.$emit('autorization', user)
         }
     },
     methods:{

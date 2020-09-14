@@ -4,7 +4,7 @@
     <Profile_modal class="prof_modal" />
     <div class="account-fixed"></div>
     <transition name="fade">
-      <router-view @autorization="autorization" />
+      <router-view :autorizedData="autorized_data" @autorization="autorization" @autorized="autorization" />
     </transition>
     <TheFooter />
   </div>
@@ -13,6 +13,7 @@
 <script>
 import Profile_modal from '@/components/Profile_modal.vue'
 import TheHeader from '@/components/TheHeader.vue'
+import TheFooter from '@/components/TheFooter.vue'
 const $ = require( "jquery" )
 export default {
   name: 'mainApp',
@@ -22,7 +23,8 @@ export default {
   }),
   components: {
     TheHeader,
-    Profile_modal
+    Profile_modal,
+    TheFooter
   },
   mounted() {
     let
@@ -81,7 +83,7 @@ export default {
     list-style-type: none
   body
     background-color: #1D1D1D
-    overflow-x: hidden
+    overflow-x: hidden !important
   .fade-enter-active, .fade-leave-active
     transition-property: opacity
     transition-duration: .3s

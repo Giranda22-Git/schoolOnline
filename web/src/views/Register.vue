@@ -41,6 +41,20 @@ export default {
         register: null,
         res: null
     }),
+    mounted() {
+        if (localStorage.getItem('autorize-email') != null) {
+            const user = {
+                firstName: localStorage.getItem('autorize-firstname'),
+                lastName: localStorage.getItem('autorize-lastname'),
+                patronymic: localStorage.getItem('autorize-patronymic'),
+                email: localStorage.getItem('autorize-email'),
+                phone: localStorage.getItem('autorize-phone'),
+                password: localStorage.getItem('autorize-password'),
+                privilege: localStorage.getItem('autorize-privilege')
+            }
+            this.$emit('autorization', user)
+        }
+    },
     methods: {
         One() {
             $('.peaple').css({'background-position-x': '150%'})
@@ -94,14 +108,18 @@ export default {
                     localStorage.setItem('autorize-phone', this.res.phone)
                     localStorage.setItem('autorize-password', this.res.password)
                     localStorage.setItem('autorize-privilege', this.res.privilege)
-
+                    this.$emit('autorization', this.res)
                     sweetalert2.fire({
                         title: 'OK',
                         text: `С возвращением ${this.res.lastName} ${this.res.firstName} ${this.res.patronymic}`,
                         icon: 'success',
-                        confirmButtonText: 'OK'
+                        confirmButtonText: 'Перейти на страницу вашего аккаунта'
+                    }).then((result) => {
+                        if (result.value) {
+                            window.location.href = 'http://localhost:8080/Account'
+                        }
                     })
-                    this.$emit('autorization', this.res)
+                    
                 }
             } else {
                 sweetalert2.fire({
@@ -148,8 +166,8 @@ export default {
             }
             
             const params = {
-                firstName: name[0],
-                lastName: name[1],
+                firstName: name[1],
+                lastName: name[0],
                 patronymic: name[2],
                 email: email,
                 password: password,
@@ -167,13 +185,6 @@ export default {
                 })
             })
             .then(
-                sweetalert2.fire({
-                    title: 'OK',
-                    text: `Поздравляем ${params.lastName} ${params.firstName} ${params.patronymic} вы успешно зарегистрированы`,
-                    icon: 'success',
-                    confirmButtonText: 'OK'
-                }),
-
                 localStorage.setItem('autorize-firstname', params.firstName),
                 localStorage.setItem('autorize-lastname', params.lastName),
                 localStorage.setItem('autorize-patronymic', params.patronymic),
@@ -181,7 +192,17 @@ export default {
                 localStorage.setItem('autorize-phone', params.phone),
                 localStorage.setItem('autorize-password', params.password),
                 localStorage.setItem('autorize-privilege', params.privilege),
-                this.$emit('autorization', params)
+                this.$emit('autorization', params),
+                sweetalert2.fire({
+                    title: 'OK',
+                    text: `Поздравляем ${params.lastName} ${params.firstName} ${params.patronymic} вы успешно зарегистрированы`,
+                    icon: 'success',
+                    confirmButtonText: 'Перейти на страницу вашего аккаунта'
+                }).then((result) => {
+                    if (result.value) {
+                        window.location.href = 'http://localhost:8080/Account'
+                    }
+                })
             )
         }
     }

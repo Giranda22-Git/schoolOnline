@@ -134,6 +134,48 @@ async function init(){
         )
       })
     })
+    app.put('/users/email/:mail', (req, res) => {
+      res.setHeader('Content-Type', 'application/json')
+      db.collection('users').findOne( { email: req.params.mail }, (err, doc) => {
+        if (err || doc === null) return res.sendStatus(500)
+        console.log(doc)
+        let 
+          resultFirstName = doc.firstName,
+          resultLastName = doc.lastName,
+          resultPatronymic = doc.patronymic,
+          resultEmail = doc.email,
+          resultPhone = doc.phone,
+          resultPassword = doc.password,
+          resultPrivilege = doc.privilege
+        ;
+
+        if(req.body.firstName != undefined) resultFirstName = req.body.firstName
+        if(req.body.lastName != undefined) resultLastName = req.body.lastName
+        if(req.body.patronymic != undefined) resultPatronymic = req.body.patronymic
+        if(req.body.email != undefined) resultEmail = req.body.email
+        if(req.body.phone != undefined) resultPhone = req.body.phone
+        if(req.body.password != undefined) resultPassword = req.body.password
+        if(req.body.privilege != undefined) resultPrivilege = req.body.privilege
+        
+
+        db.collection('users').updateOne(
+          { email: req.params.mail },
+          {$set:{
+            firstName: resultFirstName,
+            lastName: resultLastName,
+            patronymic: resultPatronymic,
+            email: resultEmail,
+            phone: resultPhone,
+            password: resultPassword,
+            privilege: resultPrivilege,
+          }},
+          (err, result) => {
+            if (err){ return res.sendStatus(500) }
+            res.send(result)
+          }
+        )
+      })
+    })
   }
   catch(err){
     console.log(err.message)

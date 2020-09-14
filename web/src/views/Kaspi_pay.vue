@@ -25,7 +25,21 @@
 
 <script>
 export default {
-    name: 'Kaspi_pay'
+    name: 'Kaspi_pay',
+    mounted() {
+        if (localStorage.getItem('autorize-email') != null) {
+            const user = {
+                firstName: localStorage.getItem('autorize-firstname'),
+                lastName: localStorage.getItem('autorize-lastname'),
+                patronymic: localStorage.getItem('autorize-patronymic'),
+                email: localStorage.getItem('autorize-email'),
+                phone: localStorage.getItem('autorize-phone'),
+                password: localStorage.getItem('autorize-password'),
+                privilege: localStorage.getItem('autorize-privilege')
+            }
+            this.$emit('autorization', user)
+        }
+    }
 }
 </script>
 
