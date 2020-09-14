@@ -239,4 +239,11 @@ export default {
                 font-size: 2vh
                 cursor: pointer
                 outline: none
+    @media screen and ( max-width: 480px )
+        .wrapper
+            width: 80vw !important
+            .close
+                width: 5vw !important
+                height: 5vw !important
+        
 </style>

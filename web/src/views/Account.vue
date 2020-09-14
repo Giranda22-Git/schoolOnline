@@ -1,10 +1,15 @@
 <template>
     <div class="wrapper">
-        <div class="front">
+        <div class="front ">
             <div class="left-content-wrapper animate__animated animate__bounceInLeft">
                 <div class="video-wrapper">
                     <video autoplay loop preload src="../assets/section2/Gif.mp4" class="left-video"></video>
                     <video autoplay loop preload src="../assets/section2/Gif.mp4" class="right-video"></video>
+                </div>
+                <div class="autorized" >
+                    <div class="account_icon"></div>
+                    <div class="username"> {{ autorizedData.lastName }} {{ autorizedData.firstName }} </div>
+                    <div class="emailadd"> {{ autorizedData.email }} </div>
                 </div>
                 <div class="video-link">
                     <ul>
@@ -32,9 +37,10 @@
                 <div class="Comp3"></div>
                 <div class="Comp4"></div>
                 <div class="Comp5">Басталуы: 30 қыркүйек</div>
-                <router-link to="/kaspi-pay" v-if="autorizedData.privilege == 'user' "> ТӨЛЕМГЕ ӨТУ </router-link>
-                <router-link to="/admin" v-if="autorizedData.privilege == 'admin' "> Admin </router-link>
+                <router-link to="/kaspi-pay" v-if="autorizedData.privilege == 'user' " class="router"> ТӨЛЕМГЕ ӨТУ </router-link>
+                <router-link to="/admin" v-if="autorizedData.privilege == 'admin' " class="router"> Admin </router-link>
                 <div @click="open" class="Comp6"></div>
+                <div @click="open" class="options_mobile"><span>Теңшеу</span></div>
             </div>
             <modalSettings v-show="isModalVisible" @close="close" :autorizedData="autorizedData" class="modalSettings" @autorized="autorized" />
         </div>
@@ -126,6 +132,8 @@ export default {
                     display: flex
                     justify-content: center
                     align-items: center
+                .autorized
+                    display: none
                 .video-link
                     height: 40%
                     width: 100%
@@ -146,7 +154,6 @@ export default {
                             text-decoration: none
                             span
                                 color: #FA1452
-                                
                                 font-family: GothamBold
                                 font-size: 2vh
                                 display: block
@@ -213,6 +220,9 @@ export default {
                     z-index: 5
                     &:hover
                         transform: scale(1.2)
+                .options_mobile
+                    display: none
+                
                 a
                     font-family: GothamBold
                     font-size: 2.5vh
@@ -235,5 +245,87 @@ export default {
                     color: white
                     display: block
                     text-align: center
+    @media screen and ( max-width: 480px )
+        .front
+            display: flex !important
+            flex-direction: column !important
+            .left-content-wrapper
+                margin-top: 10vh !important
+                width: 100% !important
+                height: 85% !important
+                .video-wrapper
+                    display: none !important
+                .autorized
+                    display: block !important
+                    color: white 
+                    font-family: GothamMedium
+                    position: relatived
+                    width: 100%
+                    height: 12Tcvw
+                    .account_icon
+                        background: url(../assets/user1.svg) center no-repeat
+                        position: absolute
+                        width: 10vw
+                        height: 10vw
+                        left: 8%
+                    .username
+                        text-align: center
+                    .emailadd
+                        text-align: center
+                .video-link
+                    height: 80vh !important
+                    ul
+                        display: flex
+                        flex-direction: column
+                        justify-content: space-evenly
+                        align-items: center
+                        height: 100% !important
+                        a
+                            width: 80%
+                            height: 10%
+                            border-radius: 15px
+                            background-color: #3D3D3D
+                            display: flex
+                            align-items: center
+                            justify-content: center
+                            text-decoration: none
+                            span
+                                color: #FA1452
+                                font-family: GothamBold
+                                font-size: 2vh
+                                display: block
+            .right-content-wrapper
+                width: 100% !important
+                height: 30vw !important
+                .router
+                    display: none !important
+                .Comp1
+                    display: none !important
+                .Comp2
+                    display: none !important
+                .Comp3
+                    display: none !important
+                .Comp4
+                    display: none !important
+                .Comp5
+                    display: none !important
+                .Comp6
+                    display: none !important
+                .options_mobile
+                    display: block !important
+                    width: 80%
+                    height: 7.5vh
+                    border-radius: 15px
+                    text-align: center
+                    background-color: #3D3D3D
+                    color: white
+                    font-family: GothamBold
+                    font-size: 2vh
+                    margin: 0 auto
+                    span
+                        line-height: 7.5vh
+                a
+                    display: none !important
+
     
 </style>
