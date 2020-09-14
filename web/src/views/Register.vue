@@ -57,20 +57,33 @@ export default {
     },
     methods: {
         One() {
+            if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+                 $('.peaple').css({'background-position-x': '150%'})
+                $('.camera').css({'background-position-x': '200%'})
+                $('.left-bottom-content-1').css({'z-index': '102', 'opacity': '1'})
+                $('.left-bottom-content-2').css({'z-index': '101', 'opacity': '0'})
+        }else{
             $('.peaple').css({'background-position-x': '150%'})
             $('.camera').css({'background-position-x': '200%'})
             $('.One').css({'transform': 'translateX(0%) translateY(0%)', 'height': '100%'} )
             $('.Two').css({'transform': 'translateX(0%) translateY(-15%)', 'height': '115%'})
             $('.left-bottom-content-1').css({'z-index': '102', 'opacity': '1'})
             $('.left-bottom-content-2').css({'z-index': '101', 'opacity': '0'})
+        }
         },
-        Two() {
+        Two() {if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+            $('.peaple').css({'background-position-x': '80%'})
+            $('.camera').css({'background-position-x': '100%'})
+            $('.left-bottom-content-1').css({'z-index': '101', 'opacity': '0'})
+            $('.left-bottom-content-2').css({'z-index': '102', 'opacity': '1'})
+        }else{
             $('.peaple').css({'background-position-x': '80%'})
             $('.camera').css({'background-position-x': '100%'})
             $('.Two').css({'transform': 'translateX(-100%) translateY(0%)', 'height': '100%'} )
             $('.One').css({'transform': 'translateX(100%) translateY(-15%)', 'height': '115%'})
             $('.left-bottom-content-1').css({'z-index': '101', 'opacity': '0'})
             $('.left-bottom-content-2').css({'z-index': '102', 'opacity': '1'})
+        }
         },
         async Autorization() {
             await axios.get(`http://localhost:3000/users/email/${$('.auto-email').val()}`)
@@ -242,8 +255,6 @@ export default {
                 bottom: 0
                 right: 0
                 background: url(../assets/Register/bg.svg) no-repeat
-                background-position-y: -400%
-                background-position-x: 150%
                 z-index: 3
                 transition: 1s
             .camera
@@ -384,5 +395,47 @@ export default {
                         font-family: GothamLight
                         font-size: 2vh
                         cursor: pointer
+    @media screen and ( max-width: 480px )
+        .peaple
+            background: none !important
+        .camera 
+            display: none !important
+        .left-content-wrapper
+            width: 100% !important
+            .register-block
+                width: 90% !important
+                .left-top-content
+                    display: flex
+                    height: 8%
+                    .One
+                        color: #FA1451
+                        background-color: #fff
+                        width: 50% !important
+                        text-align: center
+                        font-size: 3.5vh
+                        cursor: pointer
+                        transition: .5s
+                    .Two
+                        color: #000
+                        background-color: #FA1451
+                        width: 50% !important
+                        text-align: center
+                        font-size: 3.5vh
+                        transform: translateY(0%) !important
+                        cursor: pointer
+                        height: 100% !important
+                        transition: .5s
+            .left-bottom-content-1
+                width: 100% !important
+                input
+                    width: 90% !important
+                .HZ
+                    width: 90% !important
+                .SignIn
+                    width: 90% !important
+            .left-bottom-content-2
+                width: 100% !important
+        .right-content-wrapper
+            display: none !important
 
 </style>

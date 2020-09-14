@@ -8,19 +8,19 @@
                 </div>
                 <div class="video-link">
                     <ul>
-                        <router-link to="#">
+                        <router-link to="/watch">
                             <span>1. Сөз қадірің өз қадірің! </span>
                         </router-link>
-                        <router-link to="#">
+                        <router-link to="/watch">
                             <span>2. Киелі сахна</span>
                         </router-link>
-                        <router-link to="#">
+                        <router-link to="/watch">
                             <span>3. Театр, кино!</span>
                         </router-link>
-                        <router-link to="#">
+                        <router-link to="/watch">
                             <span>4. Әннің де естісі бар есері бар </span>
                         </router-link>
-                        <router-link to="#">
+                        <router-link to="/watch">
                             <span>5. Табыс формуласы</span>
                         </router-link>
                     </ul>

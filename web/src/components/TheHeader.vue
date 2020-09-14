@@ -2,9 +2,8 @@
     <div class="wrapper">
         <div class="front">
             <div class="left-header-content">
-                <div class="mobileMenu">
+                <div class="mobileMenu" @click="mob_menu">
                     <div class="buble">
-
                     </div>
                 </div>
                 <div class="logo"> <router-link to="/"></router-link></div>
@@ -50,6 +49,7 @@
 </template>
 
 <script>
+const $ = require( "jquery" )
 export default {
     name: 'TheHeader',
     data: () => ({
@@ -64,6 +64,11 @@ export default {
         autorizedData: {
             type: Object,
             default: () => {}
+        }
+    },
+    methods:{
+        mob_menu(){
+            $('.prof_modal').css({'display': 'block !important'})
         }
     }
 }
