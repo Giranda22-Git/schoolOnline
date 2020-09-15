@@ -104,7 +104,7 @@ export default {
                 index: index,
                 result: $(`.data-text-${key}`).val()
             }
-            await axios.put(`http://localhost:3000/texts/${id}`, Params)
+            await axios.put(`https://api.udb.kz/texts/${id}`, Params)
             .then( response => {
                 this.textRes = response.data
             })
@@ -118,34 +118,34 @@ export default {
             )
         },
         async search_text() {
-            await axios.get(`http://localhost:3000/texts`)
+            await axios.get(`https://api.udb.kz/texts`)
             .then( response => {
                 this.Texts = response.data
             })
         },
         async Valid() {
-            await axios.get(`http://localhost:3000/users/email/${localStorage.getItem('autorize-email')}`)
+            await axios.get(`https://api.udb.kz/users/email/${localStorage.getItem('autorize-email')}`)
             .then( response => {
                 if(response.data == "") {
-                    window.location.href = 'http://localhost:8080/'
+                    window.location.href = 'https://udb.kz/'
                 }
                 else {
                     this.res = response.data
                 }
             })
             .catch(function (error) {
-                window.location.href = 'http://localhost:8080/'
+                window.location.href = 'https://udb.kz/'
             })
             if(this.res == null){
-                window.location.href = 'http://localhost:8080/'
+                window.location.href = 'https://udb.kz/'
             } else {
                 if(this.res.privilege != 'admin'){
-                    window.location.href = 'http://localhost:8080/'
+                    window.location.href = 'https://udb.kz/'
                 }
             }
         },
         async search_user() {
-            await axios.get(`http://localhost:3000/users/search/${$('input[name=type]:checked').val()}/${ $('.searching').val() }`)
+            await axios.get(`https://api.udb.kz/users/search/${$('input[name=type]:checked').val()}/${ $('.searching').val() }`)
             .then( response => {
                 if(response.data == "") {
                     sweetalert2.fire({
@@ -207,7 +207,7 @@ export default {
                     return 
                 }
             }
-            await axios.put(`http://localhost:3000/users/${id}`, Params)
+            await axios.put(`https://api.udb.kz/users/${id}`, Params)
             .then( response => { this.result = response.data } )
             .catch(function (error) {
                 sweetalert2.fire({

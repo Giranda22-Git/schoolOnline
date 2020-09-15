@@ -86,7 +86,7 @@ export default {
         }
         },
         async Autorization() {
-            await axios.get(`http://localhost:3000/users/email/${$('.auto-email').val()}`)
+            await axios.get(`https://api.udb.kz/users/email/${$('.auto-email').val()}`)
             .then( response => {
                 if(response.data == "") {
                     sweetalert2.fire({
@@ -187,7 +187,7 @@ export default {
                 phone: phone
             }
 
-            await axios.post('http://localhost:3000/users', params)
+            await axios.post('https://api.udb.kz/users', params)
             .then( response => { this.register = response.data } )
             .catch(function (error) {
                 sweetalert2.fire({
@@ -213,7 +213,7 @@ export default {
                     confirmButtonText: 'Перейти на страницу вашего аккаунта'
                 }).then((result) => {
                     if (result.value) {
-                        window.location.href = 'http://localhost:8080/Account'
+                        window.location.href = 'https://udb.kz/Account'
                     }
                 })
             )
