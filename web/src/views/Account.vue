@@ -33,6 +33,7 @@
                 <div class="Comp4"></div>
                 <div class="Comp5">Басталуы: 30 қыркүйек</div>
                 <router-link to="/kaspi-pay" v-if="autorizedData.privilege == 'user' "> ТӨЛЕМГЕ ӨТУ </router-link>
+                <router-link to="/kaspi-pay" v-if="autorizedData.privilege == 'premium' "> Tехникалық қолдау </router-link>
                 <router-link to="/admin" v-if="autorizedData.privilege == 'admin' "> Admin </router-link>
                 <div @click="open" class="Comp6"></div>
             </div>

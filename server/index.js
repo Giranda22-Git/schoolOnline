@@ -30,6 +30,8 @@ async function init(){
       })
     })
 
+    
+
     app.post('/users', (req, res) => {
       res.setHeader('Content-Type', 'application/json')
       const user = {
@@ -39,11 +41,12 @@ async function init(){
         email: req.body.email,
         phone: req.body.phone,
         password: req.body.password,
-        privilege: "user"  // default = user, admin, pupil
+        premiumDate: null,
+        privilege: "user"  // default = user, admin, premium
       }
       db.collection('users').find().toArray((err, docs) => {
         let valid = docs.find(doc => {
-          return doc.firstName === user.firstName && doc.lastName === user.lastName && doc.patronymic === user.patronymic || doc.email === user.email
+          return doc.firstName === user.firstName && doc.lastName === user.lastName || doc.email === user.email
         })
         if(valid) return res.sendStatus(500)
         db.collection('users').insertOne(user, (err, result) => {
@@ -69,6 +72,69 @@ async function init(){
       res.setHeader('Content-Type', 'application/json')
 
       db.collection('users').find().toArray((err, docs) => {
+        if (err) return res.sendStatus(500)
+        res.send(docs)
+      })
+    })
+
+    app.get('/users/search/lastName/:lastName', (req, res) => {
+      res.setHeader('Content-Type', 'application/json')
+
+      db.collection('users').find( { lastName: req.params.lastName } ).toArray((err, docs) => {
+        if (err) return res.sendStatus(500)
+        res.send(docs)
+      })
+    })
+
+    app.get('/users/search/firstName/:firstName', (req, res) => {
+      res.setHeader('Content-Type', 'application/json')
+
+      db.collection('users').find( { firstName: req.params.firstName } ).toArray((err, docs) => {
+        if (err) return res.sendStatus(500)
+        res.send(docs)
+      })
+    })
+
+    app.get('/users/search/privilege/:privilege', (req, res) => {
+      res.setHeader('Content-Type', 'application/json')
+
+      db.collection('users').find( { privilege: req.params.privilege } ).toArray((err, docs) => {
+        if (err) return res.sendStatus(500)
+        res.send(docs)
+      })
+    })
+
+    app.get('/users/search/phone/:phone', (req, res) => {
+      res.setHeader('Content-Type', 'application/json')
+
+      db.collection('users').find( { phone: req.params.phone } ).toArray((err, docs) => {
+        if (err) return res.sendStatus(500)
+        res.send(docs)
+      })
+    })
+
+    app.get('/users/search/email/:email', (req, res) => {
+      res.setHeader('Content-Type', 'application/json')
+
+      db.collection('users').find( { email: req.params.email } ).toArray((err, docs) => {
+        if (err) return res.sendStatus(500)
+        res.send(docs)
+      })
+    })
+
+    app.get('/users/search/id/:id', (req, res) => {
+      res.setHeader('Content-Type', 'application/json')
+
+      db.collection('users').find( { _id: ObjectID( req.params.id ) } ).toArray((err, docs) => {
+        if (err) return res.sendStatus(500)
+        res.send(docs)
+      })
+    })
+
+    app.get('/users/search/premiumDate/:premiumDate', (req, res) => {
+      res.setHeader('Content-Type', 'application/json')
+
+      db.collection('users').find( { premiumDate: req.params.premiumDate } ).toArray((err, docs) => {
         if (err) return res.sendStatus(500)
         res.send(docs)
       })
@@ -104,7 +170,8 @@ async function init(){
           resultEmail = doc.email,
           resultPhone = doc.phone,
           resultPassword = doc.password,
-          resultPrivilege = doc.privilege
+          resultPrivilege = doc.privilege,
+          resultPremiumDate = doc.premiumDate
         ;
 
         if(req.body.firstName != undefined) resultFirstName = req.body.firstName
@@ -114,6 +181,7 @@ async function init(){
         if(req.body.phone != undefined) resultPhone = req.body.phone
         if(req.body.password != undefined) resultPassword = req.body.password
         if(req.body.privilege != undefined) resultPrivilege = req.body.privilege
+        if(req.body.premiumDate != undefined) resultPremiumDate = req.body.premiumDate
         
 
         db.collection('users').updateOne(
@@ -126,6 +194,7 @@ async function init(){
             phone: resultPhone,
             password: resultPassword,
             privilege: resultPrivilege,
+            premiumDate: resultPremiumDate
           }},
           (err, result) => {
             if (err){ return res.sendStatus(500) }
@@ -174,6 +243,56 @@ async function init(){
             res.send(result)
           }
         )
+      })
+    })
+
+    app.post('/texts', (req, res) => {
+      res.setHeader('Content-Type', 'application/json')
+      const text = {
+        block: req.body.block,
+        texts: req.body.texts
+      }
+      db.collection('texts').insertOne(text, (err, result) => {
+        if (err) return res.sendStatus(500)
+        res.send(result)
+      })
+    })
+
+    app.put('/texts/:id', (req, res) => {
+      res.setHeader('Content-Type', 'application/json')
+      db.collection('texts').findOne( { _id: ObjectID( req.params.id ) }, (err, doc) => {
+        if (err || doc === null) return res.sendStatus(500)
+        
+        let resultTexts = doc.texts;
+        resultTexts[req.body.index] = req.body.result
+        
+        db.collection('texts').updateOne(
+          { _id: ObjectID( req.params.id ) },
+          {$set:{
+            texts: resultTexts
+          }},
+          (err, result) => {
+            if (err){ return res.sendStatus(500) }
+            res.send(result)
+          }
+        )
+      })
+    })
+
+    app.get('/texts', (req, res) => {
+      res.setHeader('Content-Type', 'application/json')
+
+      db.collection('texts').find().toArray((err, docs) => {
+        if (err) return res.sendStatus(500)
+        res.send(docs)
+      })
+    })
+
+    app.get('/texts/:block', (req, res) => {
+      res.setHeader('Content-Type', 'application/json')
+      db.collection('texts').findOne( { block: Number(req.params.block) }, (err, doc) => {
+        if (err) return res.sendStatus(500)
+        res.send(doc)
       })
     })
   }

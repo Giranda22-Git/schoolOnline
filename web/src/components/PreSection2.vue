@@ -4,20 +4,34 @@
         <div class="SVG_text">
 
           </div>
-          <div class="Text">
-            + шабыт пен пайдалы тәжірибеге толы 5 лекцияны онлайн көру <br>
-            + лекциялар арнайы сілтеме арқылы жабық топта қолжетімді болады <br>
-            + үй тапсырмасы беріледі <br>     
-            + үй тапсырмасын үздік орындаған студенттер «Ұлы дала баласы» шоуына қатысуға жолдама алады <br> 
-            + Үздік 20 студенттің Төреғали Төреәлімен кездесуі өтеді
+          <div class="Text" v-html="result.texts[0]">
           </div>
       </div>
     </section>
 </template>
 
 <script>
+import axios from 'axios'
 export default {
-    name: 'PreSection2'
+  name: 'PreSection2',
+  data: () => ({
+    result: {
+      texts: [
+        "lorem ipsum"
+      ]
+    }
+  }),
+  methods: {
+    async allTexts() {
+      await axios.get(`http://localhost:3000/texts/${4}`)
+      .then( response => {
+        this.result = response.data
+      })
+    }
+  },
+  mounted() {
+    this.allTexts()
+  }
 }
 </script>
 

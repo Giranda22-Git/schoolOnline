@@ -10,6 +10,7 @@
 </template>
 
 <script>
+
 import StartBlock from '@/views/StartBlock.vue'
 import Section2 from '@/views/Section2.vue'
 import PreSection1 from '@/components/PreSection1.vue'

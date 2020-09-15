@@ -4,18 +4,34 @@
           <div class="SVG_text">
 
           </div>
-          <div class="Text">
-            -	шығармашылық қабілеттеріңізді шыңдауға мүмкіндік аласыз; <br>
-            -	бойыңыздағы дарынды ашып, түрлі образға ене білу қабілетін дамытасыз; <br>
-            -	айтыскерлік, әншілік, әртістік және актерлік өнерді ұштастырудың қыр-сырын меңгересіз <br>
+          <div class="Text" v-html="result.texts[0]">
           </div>
         </div>
     </section>
 </template>
 
 <script>
+import axios from 'axios'
 export default {
-  name: 'PreSection1'
+  name: 'PreSection1',
+  data: () => ({
+    result: {
+      texts: [
+        "lorem ipsum"
+      ]
+    }
+  }),
+  methods: {
+    async allTexts() {
+      await axios.get(`http://localhost:3000/texts/${2}`)
+      .then( response => {
+        this.result = response.data
+      })
+    }
+  },
+  mounted() {
+    this.allTexts()
+  }
 }
 </script>
 

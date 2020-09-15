@@ -150,7 +150,7 @@ export default {
                 password = $('.password').val(),
                 phone = $('.phone').val()
             ;
-            if(name.length != 3){
+            if(name.length != 3 && name.length != 2){
                 sweetalert2.fire({
                     title: 'Ошибка',
                     text: 'Заполните поле ФИО полностью',
@@ -208,7 +208,7 @@ export default {
                 this.$emit('autorization', params),
                 sweetalert2.fire({
                     title: 'OK',
-                    text: `Поздравляем ${params.lastName} ${params.firstName} ${params.patronymic} вы успешно зарегистрированы`,
+                    text: `Поздравляем ${params.lastName} ${params.firstName} вы успешно зарегистрированы`,
                     icon: 'success',
                     confirmButtonText: 'Перейти на страницу вашего аккаунта'
                 }).then((result) => {

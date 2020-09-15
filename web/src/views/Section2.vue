@@ -15,19 +15,7 @@
 <div class="text">
     <span class="first"> Төреғали Төреәлі </span> <br>
     <span class="second"> ҰЛЫ ДАЛА БАЛАСЫ </span> <br> <br>
-    -	Республикалық айтыстардың бас жүлдегері <br> <br>
-    -	Т. Жүргенов атындағы Қазақ ұлттық өнер академиясының түлегі <br> <br>
-    -	100 жуық ән мәтіндерінің авторы <br> <br>
-    -	160-тан астам әннің орындаушысы <br> <br>
-    -	 «Жыл таңдауы» ұлттық музыкалық марапатының жүлдегері <br> <br>
-    -	5 күн қатарынан «Ай-хай-25» атты концерт өткізіп, рекорд <br class="media_del">
-    орнатқан әртіс <br> <br>
-    -	«Ұлы дала баласы» реалити-шоуы 20 мың көрермен жинап <br class="media_del">
-    рекордтық көрсеткіштерге ие болған <br> <br>
-    -	«Ұлы Дала комедиясы» фильмінің продюсері, режиссері әрі <br class="media_del">
-    басты рөлді сомдаған актері <br> <br>
-    -	Ғаламторда ең жиі ізделетін танымал тұлғалардың бірі <br> <br>
-    -	Сүйікті ұл, абзал жар, 3 қыз және 1 ұл тәрбиелеп отырған қамқор әке <br> <br>
+    <div class="third" v-html="result.texts[0]"></div>
 </div>
                 </div>
                 <div class="right-content-wrapper animate__animated" id="sec2-right-animate">
@@ -47,8 +35,27 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
-    name: 'section2'
+    name: 'section2',
+    data: () => ({
+        result: {
+            texts: [
+                "lorem ipsum"
+            ]
+        }
+    }),
+    methods: {
+        async allTexts() {
+        await axios.get(`http://localhost:3000/texts/${5}`)
+        .then( response => {
+            this.result = response.data
+        })
+        }
+    },
+    mounted() {
+        this.allTexts()
+    }
 }
 </script>
 

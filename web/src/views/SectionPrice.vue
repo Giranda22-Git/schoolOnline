@@ -7,54 +7,35 @@
       <div class="start_wrapper">
         <div class="column_1 animate__animated" id="secPrice-left-animate">
           <div class="row">
-            <div class="left1 left"></div>
             <div class="right">
-              <span> 1. Сөз қадірің өз қадірің! </span> <br>
-              - Әдебиетке құштарлық – сөздік қор <br>
-              - Ораторлық шеберлік <br>
-              - Айтыс өнері <br>
-              - Аудитория назарын өзіңе аудару
+              <span> 1. Сөз қадірің өз қадірің! </span> 
+              <div class="right-text" v-html="result.texts[0]"></div>
             </div>
           </div>
           <div class="row">
-            <div class="left2 left"></div>
             <div class="right">
-              <span> 2. Киелі сахна </span> <br>
-              - Импровизация <br>
-              - Сахна мәдениеті <br>
-              - Cахнаға шығу алдындағы дайындық <br>
-              - Көрермендермен байланыс орнату
+              <span> 2. Киелі сахна </span> 
+              <div class="right-text" v-html="result.texts[1]"></div>
             </div>
           </div>
           <div class="row">
-            <div class="left3 left"></div>
             <div class="right">
-              <span> 3. Театр, кино! </span> <br>
-              - Актер деген кім <br>
-              - Образға ену <br>
-              - Актерлік шеберліктің пайдасы <br>
-              - Актерлік шеберлікті дамыту
+              <span> 3. Театр, кино! </span>
+              <div class="right-text" v-html="result.texts[2]"></div>
             </div>
           </div>
         </div>
         <div class="column_2 animate__animated" id="secPrice-right-animate">
           <div class="row">
-            <div class="left4 left"></div>
             <div class="right">
-              <span> 4. Әннің де естісі бар есері бар </span> <br>
-              - Әннің тәрбиелік мәні, астарлы әндер, әннің мәтіні <br>
-              - Хит әннің формуласы <br>
-              - 3-4 әннің мәтінін талдау, хитке айналу құпиясын ашу
+              <span> 4. Әннің де естісі бар есері бар </span> 
+              <div class="right-text" v-html="result.texts[3]"></div>
             </div>
           </div>
           <div class="row">
-            <div class="left5 left"></div>
             <div class="right">
-              <span> 5. Табыс формуласы </span> <br>
-              - Әртіс өміріндегі спорт <br>
-              - Рухты көтеру <br>
-              - Отбасы <br>
-              - Тәлімгер мен шәкірт
+              <span> 5. Табыс формуласы </span>
+              <div class="right-text" v-html="result.texts[4]"></div>
             </div>
           </div>
         </div>
@@ -64,8 +45,31 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
-  name: 'SectionPrice'
+  name: 'SectionPrice',
+  data: () => ({
+    result: {
+      texts: [
+        "lorem ipsum",
+        "lorem ipsum",
+        "lorem ipsum",
+        "lorem ipsum",
+        "lorem ipsum"
+      ]
+    }
+  }),
+  methods: {
+    async allTexts() {
+      await axios.get(`http://localhost:3000/texts/${3}`)
+      .then( response => {
+        this.result = response.data
+      })
+    }
+  },
+  mounted() {
+    this.allTexts()
+  }
 }
 </script>
 
@@ -108,30 +112,17 @@ export default {
             display: flex
             justify-content: center
             align-items: center
-            .left
-              width: 30%
-              height: 100%
-            .left1
-              background: url(../assets/SectionPrice/icons/one.svg) center no-repeat
-            .left2
-              background: url(../assets/SectionPrice/icons/two.svg) center no-repeat
-            .left3
-              background: url(../assets/SectionPrice/icons/three.svg) center no-repeat
-            .left4
-              background: url(../assets/SectionPrice/icons/four.svg) center no-repeat
-            .left5
-              background: url(../assets/SectionPrice/icons/five.svg) center no-repeat
             .right
-              width: 70%
+              width: 85%
               height: 50%
               color: white
               font-family: GothamLight
-              font-size: 1.6vh
+              font-size: 2vh
 
               span
                 color: #FA1452
                 font-family: GothamBold
-                font-size: 1.8vh !important
+                font-size: 2.3vh !important
   @media screen and ( max-width: 480px )
     .wrapper
       .front

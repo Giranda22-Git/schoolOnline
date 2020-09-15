@@ -68,7 +68,7 @@ export default {
                 email: $('.change-email').val(),
                 password: $('.change-password').val()
             }
-            if(name.length != 3){
+            if(name.length != 3 && name.length != 2){
                 sweetalert2.fire({
                     title: 'Ошибка',
                     text: 'Заполните поле ФИО полностью',

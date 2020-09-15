@@ -28,6 +28,15 @@
                 </nav>
             </div>
             <div class="right-header-content">
+                <div class="call-center">
+                    <ul>
+                        <li>call-center</li>
+                        <li><a href="tel:+77073105644"><span></span>+77073105644</a></li>
+                        <li><a href="tel:+77073105644"><span></span>+77073105644</a></li>
+                        <li><a href="tel:+77073105644"><span></span>+77073105644</a></li>
+                        <li><a href="tel:+77073105644"><span></span>+77073105644</a></li>
+                    </ul>
+                </div>
                 <div class="telegram"></div>
                 <div class="instagram"></div>
                 <div class="youtube">
@@ -142,6 +151,42 @@ export default {
                 & *
                     height: 50%
                     width: 20%
+                .call-center
+                    background: url(../assets/phone.svg) center no-repeat
+                    background-size: 60%
+                    cursor: pointer
+                    position: relative
+                    &:hover ul
+                        display: flex
+                    ul
+                        display: none
+                        flex-direction: column
+                        justify-content: space-evenly
+                        align-items: center
+                        background-color: #3D3D3D
+                        width: 13vw
+                        height: 15vh
+                        position: absolute
+                        bottom: -500%
+                        left: 0
+                        z-index: 100
+                        &:hover
+                            display: flex
+                        &:first-child
+                            color: #FA1451
+                            font-family: GothamLight
+                        li
+                            width: 100%
+                            text-align: center
+                            font-size: 1.5vh
+                            a
+                                color: white
+                                text-decoration: none
+                            span
+                                background: url(../assets/phone.svg) center no-repeat
+                                background-size: 30%
+                                display: inline-block
+
                 .telegram
                     background: url(../assets/telegram.svg) center no-repeat
                     background-size: cover

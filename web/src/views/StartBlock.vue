@@ -9,12 +9,8 @@
         <div class="Comp2"></div>
         <div class="Comp3"></div>
         <div class="Comp4"></div>
-        <div class="Comp5">Басталуы: 30 қыркүйек</div>
-        <div class="Comp6">
-          Ұлы дала баласы боламын десең... <br>
-          Курсытың өткізілу мерзімі – 30 қыркүйек-17 қазан <br>
-          Лекциялардың өткізілуі – 30 қыркүйек – 12 қазан <br>
-          Үй тапсырмасы – 13-17 қазан <br>
+        <div class="Comp5">{{ result.texts[0] }}</div>
+        <div class="Comp6" v-html="result.texts[1]">
         </div>
       </div>
     </div>
@@ -22,8 +18,28 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
-  name: 'StartBlock'
+  name: 'StartBlock',
+  data: () => ({
+    result: {
+      texts: [
+        "lorem ipsum",
+        "lorem ipsum"
+      ]
+    }
+  }),
+  methods: {
+    async allTexts() {
+      await axios.get(`http://localhost:3000/texts/${1}`)
+      .then( response => {
+        this.result = response.data
+      })
+    }
+  },
+  mounted() {
+    this.allTexts()
+  }
 }
 </script>
 
