@@ -38,6 +38,31 @@ Vue.use(VueRouter)
     path: '/admin',
     name: 'admin',
     component: admin
+  },
+  {
+    path: '/Copyright',
+    name: 'Copyright',
+    component: () => import('../views/Copyright.vue')
+  },
+  {
+    path: '/OBJECTIVES',
+    name: 'OBJECTIVES',
+    component: () => import('../views/OBJECTIVES.vue')
+  },
+  {
+    path: '/OFFER',
+    name: 'OFFER',
+    component: () => import('../views/OFFER.vue')
+  },
+  {
+    path: '/Props',
+    name: 'Props',
+    component: () => import('../views/Props.vue')
+  },
+  {
+    path: '/PayInfo',
+    name: 'PayInfo',
+    component: () => import('../views/PayInfo.vue')
   }
 ]
 

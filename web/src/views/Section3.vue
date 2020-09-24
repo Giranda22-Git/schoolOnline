@@ -1,8 +1,8 @@
 <template>
-    <section class="wrapper" id="sec3">
+    <section class="wrapper" id="sec7">
         <div class="wrapper-front">
             <div class="front">
-                <div class="anime animate__animated" id="sec3-animate">
+                <div class="anime animate__animated" id="sec7-animate">
                     <div class="SVG_Text"></div>
                     <p>
                         <span class="first"> КУРСТЫҢ БАҒАСЫ </span> <br>
@@ -34,7 +34,7 @@ export default {
             },
             function () {
                 $('.wrapper-front').css('opacity', '0.8')
-            },
+            }
         )
     }
 }

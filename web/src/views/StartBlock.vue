@@ -9,9 +9,10 @@
         <div class="Comp2"></div>
         <div class="Comp3"></div>
         <div class="Comp4"></div>
-        <div class="Comp5">{{ result.texts[0] }}</div>
-        <div class="Comp6" v-html="result.texts[1]">
-        </div>
+        <div class="Comp5" v-html="result.texts[0]"></div>
+        <a href="#sec7" class="Comp6">ҚАТЫСАМЫН</a>
+        <div class="Comp7" v-html="result.texts[1]"></div>
+        <div class="Comp8" v-html="result.texts[2]"></div>
       </div>
     </div>
   </div>
@@ -24,6 +25,7 @@ export default {
   data: () => ({
     result: {
       texts: [
+        "lorem ipsum",
         "lorem ipsum",
         "lorem ipsum"
       ]
@@ -44,6 +46,9 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+  @font-face
+    font-family: GothamBold
+    src: url(../assets/Gotham/GothamBold.ttf)
   @font-face
     font-family: GothamLight
     src: url(../assets/Gotham/GothamLight.ttf)
@@ -99,7 +104,7 @@ export default {
         .Comp5
           width: 100%
           position: absolute
-          bottom: 45%
+          bottom: 42%
           left: 0
           text-align: center
           font-family: GothamLight
@@ -107,16 +112,44 @@ export default {
           font-size: 3.1vh
           font-weight: 100
         .Comp6
+          width: 40%
+          height: 7.5%
+          border-radius: 22px
+          position: absolute
+          bottom: 30%
+          left: 50%
+          transform: translateX(-50%)
+          text-align: left
+          font-family: GothamBold
+          color: white
+          font-size: 3.5vh
+          display: flex
+          justify-content: center
+          align-items: center
+          background-color: #FA1452
+          box-shadow: 0px 0px 23px #FA1452
+          cursor: pointer
+          text-decoration: none
+        .Comp7
           width: 100%
           position: absolute
-          padding-left: 15%
-          bottom: 30%
-          left: 0
-          text-align: left
           font-family: GothamLight
           color: white
-          font-size: 2vh
-          font-weight: 100
+          font-size: 3vh
+          font-weight: 400
+          bottom: 47%
+          left: 0
+          text-align: center
+        .Comp8
+          width: 100%
+          position: absolute
+          font-family: GothamLight
+          color: white
+          font-size: 3vh
+          font-weight: 400
+          top: 30%
+          left: 0
+          text-align: center
   @media screen and ( max-width: 480px )
     .wrapper
       height: 60vh !important

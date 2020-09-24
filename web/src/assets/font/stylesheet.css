@@ -1,0 +1,12 @@
+@font-face {
+    font-family: 'kurut';
+    src: url('kurut.eot');
+    src: local('kurut'),
+        url('kurut.eot?#iefix') format('embedded-opentype'),
+        url('kurut.woff2') format('woff2'),
+        url('kurut.woff') format('woff'),
+        url('kurut.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+

@@ -7,47 +7,42 @@
                     </div>
                 </div>
                 <div class="logo"> <router-link to="/"></router-link></div>
+                <div class="logo-1"> <router-link to="/"></router-link></div>
+                <div class="logo-2"> <router-link to="/"></router-link></div>
                 <nav>
                     <ul>
                         <li>
-                            <a href="#">ТТТ туралы</a>
+                            <a href="#sec2">Бағдарлама</a>
                         </li>
                         <li>
-                            <a href="#">Не үйренесіз?</a>
+                            <a href="#sec3">Не үйренесің?</a>
                         </li>
                         <li>
-                            <a href="#">Ерекшеліктер</a>
+                            <a href="#sec4">Курс сен үшін</a>
                         </li>
                         <li>
-                            <a href="#">Бағасы</a>
+                            <a href="#sec5">Бонустар</a>
                         </li>
                         <li>
-                            <a href="#">Төлем</a>
+                            <a href="#sec6">Курс авторы</a>
+                        </li>
+                        <li>
+                            <a href="#sec7">Төлем</a>
                         </li>
                     </ul>
                 </nav>
             </div>
             <div class="right-header-content">
                 <div class="call-center">
-                    <ul>
-                        <li>call-center</li>
-                        <li><a href="tel:+77073105644"><span></span>+77073105644</a></li>
-                        <li><a href="tel:+77073105644"><span></span>+77073105644</a></li>
-                        <li><a href="tel:+77073105644"><span></span>+77073105644</a></li>
-                        <li><a href="tel:+77073105644"><span></span>+77073105644</a></li>
-                    </ul>
-                </div>
-                <div class="telegram"></div>
-                <div class="instagram"></div>
-                <div class="youtube">
+                    <a href="https://api.whatsapp.com/send?phone=+77777777777"></a>
+                
                     <div class="account-fixed-register" v-show="!isAutorized">
                         <router-link to="/Register" ></router-link>
                     </div>
                     <router-link to="/Account" class="account-fixed-autorized" v-show="isAutorized">
                         <div class="passed">
                             <div class="autorized" >
-                                <div class="username"> {{ autorizedData.lastName }} {{ autorizedData.firstName }} </div>
-                                <div class="emailadd"> {{ autorizedData.email }} </div>
+                                {{ autorizedData.lastName }} {{ autorizedData.firstName }}
                             </div>
                         </div>
                     </router-link>
@@ -139,25 +134,84 @@ export default {
             justify-content: space-between
             align-items: center
             .left-header-content
-                width: 70%
+                width: 90%
                 height: 100%
                 display: flex
             .right-header-content
-                width: 12%
+                width: 5%
                 height: 100%
                 display: flex
                 justify-content: space-around
                 align-items: center
                 & *
-                    height: 50%
-                    width: 20%
+                    height: 60%
+                    width: 100%
                 .call-center
                     background: url(../assets/phone.svg) center no-repeat
-                    background-size: 60%
+                    background-size: contain
                     cursor: pointer
                     position: relative
-                    &:hover ul
-                        display: flex
+                    a
+                        width: 100%
+                        height: 100%
+                        display: block
+                    .account-fixed-register
+                        width: 3.8vw
+                        height: 3.8vw
+                        position: absolute
+                        right: 0vw
+                        top: 8vh
+                        border-radius: 50%
+                        border: 1px solid #FFF
+                        background: #3D3D3D url(../assets/user1.svg) center no-repeat
+                        background-size: 45%
+                        animation: radial-pulse 1s infinite;
+                        transition: .5s
+                        a
+                            width: 100%
+                            height: 100%
+                            display: block
+
+                        &:hover
+                            transform: scale(1.15)
+                    .account-fixed-autorized
+                        width: 3.8vw
+                        height: 3.8vw
+                        position: absolute
+                        right: 10vw
+                        top: 8vh
+                        border-radius: 50%
+                        border: 1px solid #FFF
+                        background: #3D3D3D url(../assets/user1.svg) center no-repeat
+                        background-size: 45%
+                        animation: radial-pulse 1s infinite;
+                        transition: .5s
+                        display: block
+                        .passed
+                            position: relative
+                            width: 100%
+                            height: 100%
+
+                            .autorized
+                                width: 400%
+                                height: 100%
+                                display: flex
+                                position: absolute
+                                right: -400%
+                                bottom: 0
+                                justify-content: flex-start
+                                align-items: center
+                                font-size: 2.1vh
+                                white-space: nowrap
+                                text-transform: capitalize
+                                color: white
+                                font-family: GothamLight
+                                text-align: left
+                                padding-left: 20%
+                                line-height: 2.5vh
+                                    
+                        &:hover
+                            transform: scale(1.15)
                     ul
                         display: none
                         flex-direction: column
@@ -187,97 +241,27 @@ export default {
                                 background-size: 30%
                                 display: inline-block
 
-                .telegram
-                    background: url(../assets/telegram.svg) center no-repeat
-                    background-size: cover
-                    cursor: pointer
-                .instagram
-                    background: url(../assets/instagram.svg) center no-repeat
-                    background-size: cover
-                    cursor: pointer
-                .youtube
-                    background: url(../assets/youtube.svg) center no-repeat
-                    background-size: cover
-                    cursor: pointer
-                    position: relative
-                            
-                .account-fixed-register
-                    width: 3.8vw
-                    height: 3.8vw
-                    position: absolute
-                    right: 0vw
-                    top: 8vh
-                    border-radius: 50%
-                    border: 1px solid #FFF
-                    background: #3D3D3D url(../assets/user1.svg) center no-repeat
-                    background-size: 45%
-                    animation: radial-pulse 1s infinite;
-                    transition: .5s
-                    a
-                        width: 100%
-                        height: 100%
-                        display: block
-
-                    &:hover
-                        transform: scale(1.15)
-                .account-fixed-autorized
-                    width: 3.8vw
-                    height: 3.8vw
-                    position: absolute
-                    right: 15vw
-                    top: 8vh
-                    border-radius: 50%
-                    border: 1px solid #FFF
-                    background: #3D3D3D url(../assets/user1.svg) center no-repeat
-                    background-size: 45%
-                    animation: radial-pulse 1s infinite;
-                    transition: .5s
-                    display: block
-                    .passed
-                        position: relative
-                        width: 100%
-                        height: 100%
-
-                        .autorized
-                            width: 400%
-                            height: 100%
-                            display: flex
-                            position: absolute
-                            right: -400%
-                            bottom: 0
-                            flex-direction: column
-                            justify-content: center
-                            align-items: flex-start
-                            .username, .emailadd
-                                width: 100%
-                                height: 50%
-                                color: white
-                                font-family: GothamLight
-                                text-align: left
-                                padding-left: 5%
-                                line-height: 2.5vh
-                                font-size: 1.6vh
-                                white-space: nowrap
-                            .username
-                                text-transform: capitalize
-                                font-size: 2.1vh
-
-
-                    &:hover
-                        transform: scale(1.15)
-                    
-
-
-
-            .logo
-                width: 10%
+            .logo, .logo-1, .logo-2
                 height: 100%
-                background: url(../assets/Comp6_000001.svg) center no-repeat
                 cursor: pointer
                 a
                     width: 100%
                     height: 100%
                     display: block
+            .logo
+                background: url(../assets/Comp6_000001.svg) center no-repeat
+                width: 5%
+            .logo-1
+                background: url(../assets/UDB.svg) center no-repeat
+                background-size: contain
+                background-position-x: center
+                background-position-y: 60%
+                width: 6%
+            .logo-2
+                background: url(../assets/onlineschool.svg) center no-repeat
+                background-size: contain
+                width: 5%
+                margin-left: 1%
             nav
                 min-width: 80%
                 height: 100%

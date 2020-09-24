@@ -1,43 +1,57 @@
 <template>
-  <section class="wrapper" id="secPrice">
+  <section class="wrapper" id="sec2">
     <div class="front">
       <div class="SVG_Text">
 
       </div>
-      <div class="start_wrapper">
-        <div class="column_1 animate__animated" id="secPrice-left-animate">
-          <div class="row">
-            <div class="right">
-              <span> 1. Сөз қадірің өз қадірің! </span> 
-              <div class="right-text" v-html="result.texts[0]"></div>
+      <div class="start_wrapper"> 
+        <div class="wrapper-top-content animate__animated" id="sec2-left-animate">
+          <div class="block-1 block">
+            <div class="picture">
+
+            </div>
+            <div class="text">
+              <p> 1. ШЕШЕНДІК <br>
+       ӨНЕР </p>
             </div>
           </div>
-          <div class="row">
-            <div class="right">
-              <span> 2. Киелі сахна </span> 
-              <div class="right-text" v-html="result.texts[1]"></div>
+          <div class="block-2 block">
+            <div class="picture">
+
+            </div>
+            <div class="text">
+             <p>  2. КИНО ЖӘНЕ <br>
+       ТЕАТР </p>
             </div>
           </div>
-          <div class="row">
-            <div class="right">
-              <span> 3. Театр, кино! </span>
-              <div class="right-text" v-html="result.texts[2]"></div>
+          <div class="block-3 block">
+            <div class="picture">
+
+            </div>
+            <div class="text">
+             <p> 3. ЭСТРАДА </p>
+            </div>
+          </div>
+          <div class="block-4 block">
+            <div class="picture">
+              <div class="picture-front"></div>
+            </div>
+            <div class="text">
+             <p> 4. КӨРКЕМ <br>
+    МІНЕЗ </p>
+            </div>
+          </div>
+          <div class="block-5 block">
+            <div class="picture">
+
+            </div>
+            <div class="text">
+             <p> 5. СПОРТ </p>
             </div>
           </div>
         </div>
-        <div class="column_2 animate__animated" id="secPrice-right-animate">
-          <div class="row">
-            <div class="right">
-              <span> 4. Әннің де естісі бар есері бар </span> 
-              <div class="right-text" v-html="result.texts[3]"></div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="right">
-              <span> 5. Табыс формуласы </span>
-              <div class="right-text" v-html="result.texts[4]"></div>
-            </div>
-          </div>
+        <div class="wrapper-bottom-content animate__animated" id="sec2-right-animate">
+          <div class="text-block" v-html="result.texts[0]"></div>
         </div>
       </div>
     </div>
@@ -52,16 +66,12 @@ export default {
     result: {
       texts: [
         "lorem ipsum",
-        "lorem ipsum",
-        "lorem ipsum",
-        "lorem ipsum",
-        "lorem ipsum"
       ]
     }
   }),
   methods: {
     async allTexts() {
-      await axios.get(`https://api.udb.kz/texts/${3}`)
+      await axios.get(`https://api.udb.kz/texts/${2}`)
       .then( response => {
         this.result = response.data
       })
@@ -101,71 +111,63 @@ export default {
       .start_wrapper
         width: 100%
         height: 70%
-        display: flex
-        padding-top: 5%
-        .column_1, .column_2
-          width: 50%
-          height: 100%
-          .row
-            width: 100%
-            height: 25%
-            display: flex
-            justify-content: center
-            align-items: center
-            .right
-              width: 85%
-              height: 50%
-              color: white
-              font-family: GothamLight
-              font-size: 2vh
-
-              span
-                color: #FA1452
-                font-family: GothamBold
-                font-size: 2.3vh !important
-  @media screen and ( max-width: 480px )
-    .wrapper
-      .front
-        padding: 2.5% !important
-        .SVG_Text
-          background-position-y: 45% !important
-          background-size: 100% !important
-          height: 9%
-        .start_wrapper
+        & *
           width: 100%
-          height: 100%
-          display: block !important
-          .column_1, .column_2
-            height: auto
-            width: 100%
-            .row
+          height: 50%
+        .wrapper-bottom-content
+          display: flex
+          justify-content: center
+          align-items: flex-start
+          padding-left: 10%
+          padding-top: 3%
+          .text-block
+            font-family: GothamLight
+            font-size: 2vh
+            color: white
+        .wrapper-top-content
+          display: flex
+          justify-content: space-evenly
+          align-items: center
+          .block
+            width: 15%
+            height: 60%
+            .picture
               width: 100%
-              height: 18vh
+              height: 70%
+              background-size: cover !important
+            .text
+              width: 100%
+              height: 30%
+              text-align: center
+              color: #FA1452
+              font-family: GothamBold
+              font-size: 1.8vh
               display: flex
               justify-content: center
               align-items: center
-              .left
-                display: none !important
-              .left1
-                display: none !important
-              .left2
-                display: none !important
-              .left3
-                display: none !important
-              .left4
-                display: none !important
-              .left5
-                display: none !important
-              .right
-                width: 100vw
-                height: 14vh !important
-                color: white
-                font-family: GothamLight
-                font-size: 2vh
+              background-color: #000
+          .block-1
+            .picture
+              background: #000 url(../assets/SectionPrice/icons/one.svg) center no-repeat
+          .block-2
+            .picture
+              background: #000 url(../assets/SectionPrice/icons/two.svg) center no-repeat
+          .block-3
+            .picture
+              background: #000 url(../assets/SectionPrice/icons/three.svg) center no-repeat
+          .block-4
+            .picture
+              background: linear-gradient(90deg, rgba(255, 255, 255, 0.2) 0%, rgba(196, 196, 196, 0.2) 0.01%, rgba(255, 255, 255, 0) 103.56%), linear-gradient(180deg, #FFFFFF 0%, rgba(255, 255, 255, 0) 100%), linear-gradient(180deg, #FFF7F7 0%, #C4C4C4 44.79%), linear-gradient(0deg, #604949, #604949)
+              .picture-front
+                height: 100%
+                width: 100%
+                background: url(../assets/SectionPrice/icons/four.svg) center no-repeat
+          .block-5
+            .picture
+              background: #000 url(../assets/SectionPrice/icons/five.svg) center no-repeat
 
-                span
-                  color: #FA1452
-                  font-family: GothamBold
-                  font-size: 1.8vh !important
+
+
+        
 
 </style>

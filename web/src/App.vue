@@ -30,19 +30,28 @@ export default {
     let
       sec2 = $('#sec2').offset().top,
       sec3 = $('#sec3').offset().top,
-      secPrice = $('#secPrice').offset().top
+      sec4 = $('#sec4').offset().top,
+      sec5 = $('#sec5').offset().top,
+      sec6 = $('#sec6').offset().top,
+      sec7 = $('#sec7').offset().top
     ;
+
     window.addEventListener('scroll', function() {
       if (pageYOffset >= sec2 - $('#sec2').height()) {
         $('#sec2-left-animate').addClass('animate__backInLeft')
         $('#sec2-right-animate').addClass('animate__backInRight')
       }
-      if (pageYOffset >= sec3 - ($('#sec3').height() - ($('#sec3').height() / 3))){
-        $('#sec3-animate').addClass('animate__flipInX')
+      if (pageYOffset >= sec3 - ($('#sec3').height() - ($('#sec3').height() / 4))){
+        $('#sec3-animate').addClass('animate__jackInTheBox')
       }
-      if (pageYOffset >= secPrice - ($('#secPrice').height() - ($('#secPrice').height() / 4))){
-        $('#secPrice-left-animate').addClass('animate__bounceInLeft')
-        $('#secPrice-right-animate').addClass('animate__bounceInRight')
+      if (pageYOffset >= sec4 - ($('#sec4').height() - ($('#sec4').height() / 4))){
+        $('#sec4-animate').addClass('animate__lightSpeedInLeft')
+      }
+      if (pageYOffset >= sec6 - ($('#sec6').height() - ($('#sec6').height() / 4))){
+        $('#sec6-animate').addClass('animate__jackInTheBox')
+      }
+      if (pageYOffset >= sec7 - ($('#sec7').height() - ($('#sec7').height() / 4))){
+        $('#sec7-animate').addClass('animate__jackInTheBox')
       }
     })
     if (localStorage.getItem('autorize-email') != null) {
@@ -77,6 +86,8 @@ export default {
   @import url(../node_modules/animate.css/animate.css)
   *
     box-sizing: border-box !important
+  html
+    scroll-behavior: smooth
   body, ul, h1, p
     margin: 0px
     padding: 0px
@@ -95,4 +106,6 @@ export default {
     opacity: 0
   .prof_modal
     display: none
+  .navblock
+    position: absolute
 </style>
