@@ -1,0 +1,46 @@
+[{
+  "_id": {
+    "$oid": "5f7530752b8adf51dc54bde7"
+  },
+  "number": 1,
+  "isOpen": false,
+  "title": "1. ШЕШЕНДІК ӨНЕР",
+  "date": "(15 қазан)",
+  "src": "https://www.youtube.com/embed/qQf81KFHqh4"
+},{
+  "_id": {
+    "$oid": "5f7531522b8adf51dc54bde8"
+  },
+  "number": 2,
+  "isOpen": false,
+  "title": "2. КИНО ЖӘНЕ ТЕАТР",
+  "date": "(17 қазан)",
+  "src": "https://www.youtube.com/embed/Kp2dBnuPQeA"
+},{
+  "_id": {
+    "$oid": "5f75319c2b8adf51dc54bde9"
+  },
+  "number": 3,
+  "isOpen": false,
+  "title": "3. ЭСТРАДА",
+  "date": "(19 қазан)",
+  "src": "https://www.youtube.com/embed/MuKTOZQ2kAk"
+},{
+  "_id": {
+    "$oid": "5f7531eb2b8adf51dc54bdea"
+  },
+  "number": 4,
+  "isOpen": false,
+  "title": "4. КӨРКЕМ МІНЕЗ",
+  "date": "(21 қазан)",
+  "src": "https://www.youtube.com/embed/iqeXUh8lPEM"
+},{
+  "_id": {
+    "$oid": "5f7532202b8adf51dc54bdeb"
+  },
+  "number": 5,
+  "isOpen": false,
+  "title": "5. СПОРТ",
+  "date": "(23 қазан)",
+  "src": "https://www.youtube.com/embed/vXxqcWFbJ3U"
+}]

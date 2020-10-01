@@ -5,20 +5,8 @@
             <div class="camera"></div>
             <div class="left-content-wrapper">
                 <div class="register-block">
-                    <div class="left-top-content">
-                        <div class="One" @click="One">1</div>
-                        <div class="Two" @click="Two">2</div>
-                    </div>
-                    <form class="left-bottom-content-1" onsubmit="return false">
-                        <input type="text" class="register-name" placeholder="аты-жөні" required>
-                        <input type="number" class="phone" placeholder="ұялы телефон" required>
-                        <input type="email" class="email" placeholder="пошта" required>
-                        <input type="password" class="password" placeholder="пароль" required>
-                        <button class="HZ" @click="Registration">тіркелу</button>
-                        <button class="SignIn" @click="Two" onclick="event.preventDefault()" >кіру</button>
-                    </form>
                     <form class="left-bottom-content-2" onsubmit="return false">
-                        <input type="email" class="auto-email" placeholder="пошта" required>
+                        <input type="text" class="auto-phone" placeholder="ұялы телефон" required>
                         <input type="password" class="auto-password" placeholder="пароль" required>
                         <button class="SignIn" @click="Autorization">кіру</button>
                     </form>
@@ -42,20 +30,28 @@ export default {
         res: null
     }),
     mounted() {
-        if (localStorage.getItem('autorize-email') != null) {
+        if (localStorage.getItem('autorize-phone') != null) {
             const user = {
-                firstName: localStorage.getItem('autorize-firstname'),
-                lastName: localStorage.getItem('autorize-lastname'),
-                patronymic: localStorage.getItem('autorize-patronymic'),
-                email: localStorage.getItem('autorize-email'),
+                firstName: localStorage.getItem('autorize-firstName'),
+                lastName: localStorage.getItem('autorize-lastName'),
                 phone: localStorage.getItem('autorize-phone'),
-                password: localStorage.getItem('autorize-password'),
                 privilege: localStorage.getItem('autorize-privilege')
             }
-            this.$emit('autorization', user)
+            this.refresh(user.phone)
+            this.$emit("autorization", user)
         }
     },
     methods: {
+        async refresh(phone) {
+            await axios.get('https://api.udb.kz/users/search/phone/' + phone)
+            .then(response => {
+                localStorage.setItem('autorize-privilege', response.data.privilege)
+                localStorage.setItem('autorize-firstName', response.data.firstName),
+                localStorage.setItem('autorize-lastName', response.data.lastName),
+                localStorage.setItem('autorize-phone', response.data.phone),
+                localStorage.setItem('autorize-password', response.data.password)
+            })
+        },
         One() {
             if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
                  $('.peaple').css({'background-position-x': '150%'})
@@ -86,7 +82,7 @@ export default {
         }
         },
         async Autorization() {
-            await axios.get(`https://api.udb.kz/users/email/${$('.auto-email').val()}`)
+            await axios.get(`https://api.udb.kz/users/search/phone/${$('.auto-phone').val()}`)
             .then( response => {
                 if(response.data == "") {
                     sweetalert2.fire({
@@ -105,7 +101,7 @@ export default {
             })
             
             if ( $('.auto-password').val() == this.res.password ) {
-                if (localStorage.getItem('autorize-email') == this.res.email)
+                if (localStorage.getItem('autorize-phone') == this.res.phone)
                 {
                     sweetalert2.fire({
                         title: 'OK',
@@ -114,17 +110,14 @@ export default {
                         confirmButtonText: 'OK'
                     })
                 } else {
-                    localStorage.setItem('autorize-firstname', this.res.firstName)
-                    localStorage.setItem('autorize-lastname', this.res.lastName)
-                    localStorage.setItem('autorize-patronymic', this.res.patronymic)
-                    localStorage.setItem('autorize-email', this.res.email)
+                    localStorage.setItem('autorize-firstName', this.res.firstName)
+                    localStorage.setItem('autorize-lastName', this.res.lastName)
                     localStorage.setItem('autorize-phone', this.res.phone)
-                    localStorage.setItem('autorize-password', this.res.password)
                     localStorage.setItem('autorize-privilege', this.res.privilege)
                     this.$emit('autorization', this.res)
                     sweetalert2.fire({
                         title: 'OK',
-                        text: `С возвращением ${this.res.lastName} ${this.res.firstName} ${this.res.patronymic}`,
+                        text: `С возвращением ${this.res.lastName} ${this.res.firstName}`,
                         icon: 'success',
                         confirmButtonText: 'Перейти на страницу вашего аккаунта'
                     }).then((result) => {
@@ -142,81 +135,6 @@ export default {
                     confirmButtonText: 'OK'
                 })
             }
-        },
-        async Registration() {
-            const 
-                name = $('.register-name').val().split(' '),
-                email = $('.email').val(),
-                password = $('.password').val(),
-                phone = $('.phone').val()
-            ;
-            if(name.length != 3 && name.length != 2){
-                sweetalert2.fire({
-                    title: 'Ошибка',
-                    text: 'Заполните поле ФИО полностью',
-                    icon: 'error',
-                    confirmButtonText: 'OK'
-                })
-                return
-            }
-            else if(password.length < 6){
-                sweetalert2.fire({
-                    title: 'Ошибка',
-                    text: 'Пароль должен состоять минимум из 6 символов',
-                    icon: 'error',
-                    confirmButtonText: 'OK'
-                })
-                return
-            }
-            else if(phone.length < 11){ 
-                sweetalert2.fire({
-                    title: 'Ошибка',
-                    text: 'Введите номер телефона корректно',
-                    icon: 'error',
-                    confirmButtonText: 'OK'
-                })
-                return 
-            }
-            
-            const params = {
-                firstName: name[1],
-                lastName: name[0],
-                patronymic: name[2],
-                email: email,
-                password: password,
-                phone: phone
-            }
-
-            await axios.post('https://api.udb.kz/users', params)
-            .then( response => { this.register = response.data } )
-            .catch(function (error) {
-                sweetalert2.fire({
-                    title: 'Ошибка',
-                    text: `код ошибки: ${error.response.status}, возможно такое ФИО или адресс электронной почты уже используется`,
-                    icon: 'error',
-                    confirmButtonText: 'OK'
-                })
-            })
-            .then(
-                localStorage.setItem('autorize-firstname', params.firstName),
-                localStorage.setItem('autorize-lastname', params.lastName),
-                localStorage.setItem('autorize-patronymic', params.patronymic),
-                localStorage.setItem('autorize-email', params.email),
-                localStorage.setItem('autorize-phone', params.phone),
-                localStorage.setItem('autorize-password', params.password),
-                localStorage.setItem('autorize-privilege', params.privilege),
-                this.$emit('autorization', params),
-                sweetalert2.fire({
-                    title: 'OK',
-                    text: `Поздравляем ${params.lastName} ${params.firstName} вы успешно зарегистрированы`,
-                    icon: 'success',
-                    confirmButtonText: 'Перейти на страницу вашего аккаунта'
-                }).then((result) => {
-                    if (result.value) {
-                        window.location.href = 'https://udb.kz/Account'
-                    }
-                })
-            )
         }
     }
 }
@@ -255,6 +173,7 @@ export default {
                 bottom: 0
                 right: 0
                 background: url(../assets/Register/bg.svg) no-repeat
+                background-position: right
                 z-index: 3
                 transition: 1s
             .camera
@@ -274,9 +193,6 @@ export default {
                 height: 90%
                 
             .left-content-wrapper
-                display: flex
-                align-items: center
-                justify-content: center
                 color: white
                 .register-block
                     width: 60%
@@ -307,21 +223,19 @@ export default {
                     .left-bottom-content-2
                         display: flex
                         flex-direction: column
-                        justify-content: center
+                        justify-content: space-evenly
                         align-items: center
-                        height: 92%
+                        height: 50%
                         background-color: #FA1451
                         position: absolute
                         width: 100%
                         bottom: 0
                         left: 0
                         z-index: 101
-                        opacity: 0
                         transition: 1s
                         & *
                             width: 80%
-                            height: 8%
-                            margin-bottom: 5%
+                            height: 20%
                         input
                             background-color: transparent !important
                     .left-bottom-content-1

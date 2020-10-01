@@ -92,19 +92,19 @@ export default {
           height: 40%
           background: url(../assets/Comp/Comp3.svg) center no-repeat
           position: absolute
-          top: 11%
+          bottom: 50%
           left: 17%
         .Comp4
           width: 100%
           height: 40%
           background: url(../assets/Comp/Comp4.svg) center no-repeat
           position: absolute
-          top: 20%
+          bottom: 39%
           left: 0%
         .Comp5
           width: 100%
           position: absolute
-          bottom: 42%
+          bottom: 41%
           left: 0
           text-align: center
           font-family: GothamLight
@@ -137,7 +137,7 @@ export default {
           color: white
           font-size: 3vh
           font-weight: 400
-          bottom: 47%
+          bottom: 46%
           left: 0
           text-align: center
         .Comp8
@@ -150,9 +150,9 @@ export default {
           top: 30%
           left: 0
           text-align: center
-  @media screen and ( max-width: 480px )
+  @media screen and ( max-width: 1024px )
     .wrapper
-      height: 60vh !important
+      height: 100vh !important
       .front
         max-width: 1440px
         .left-content-wrapper
@@ -168,14 +168,16 @@ export default {
             background-size: 92.5% !important
           .Comp4
             height: 40% !important
-            background: url(../assets/Comp/Comp1_mobile.svg) center no-repeat !important
+            background: url(../assets/Comp/Comp4.svg) center no-repeat !important
+            background-size: 90% !important
             position: absolute !important
-            top: 35% !important
           .Comp5
             font-size: 3vh !important
-            bottom: 28%
             font-weight: 1000000 !important
           .Comp6
-            font-size: 1.5vh !important
-            bottom: 12% !important
+            font-size: 2.5vh !important
+            width: 60% !important
+            height: 10% !important
+            bottom: 25% !important
+
 </style>

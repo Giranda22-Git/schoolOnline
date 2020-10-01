@@ -3,8 +3,7 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Kaspi_pay from '../views/Kaspi_pay.vue'
 import Videos from '../views/Videos.vue'
-import admin from '../views/admin.vue'
-
+import axios from 'axios'
 
 Vue.use(VueRouter)
 
@@ -30,14 +29,14 @@ Vue.use(VueRouter)
     component: () => import('../views/Account.vue')
   },
   {
-    path: '/watch',
+    path: '/watch/:id',
     name: 'Videos',
     component: Videos
   },
   {
     path: '/admin',
     name: 'admin',
-    component: admin
+    component: () => import('../views/admin.vue')
   },
   {
     path: '/Copyright',
@@ -74,4 +73,19 @@ const router = new VueRouter({
     return { x: 0, y: 0 }
   }
 })
+
 export default router
+
+/*
+{
+      const user = {
+        firstName: localStorage.getItem('autorize-firstName'),
+        lastName: localStorage.getItem('autorize-lastName'),
+        phone: localStorage.getItem('autorize-phone'),
+        privilege: localStorage.getItem('autorize-privilege')
+      }
+      axios.post("http://localhost:3000/Validation/Users/Admin", user)
+      .then( response => {
+        console.log(response.data)
+      })
+*/

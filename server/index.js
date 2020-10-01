@@ -30,23 +30,18 @@ async function init(){
       })
     })
 
-    
-
     app.post('/users', (req, res) => {
       res.setHeader('Content-Type', 'application/json')
       const user = {
         firstName: req.body.firstName,
         lastName: req.body.lastName,
-        patronymic: req.body.patronymic,
-        email: req.body.email,
         phone: req.body.phone,
-        password: req.body.password,
-        premiumDate: null,
-        privilege: "user"  // default = user, admin, premium
+        password: Math.random().toString(36).slice(-8),
+        privilege: req.body.privilege ? "premium" : "user"   // default = user, admin, premium
       }
       db.collection('users').find().toArray((err, docs) => {
         let valid = docs.find(doc => {
-          return doc.firstName === user.firstName && doc.lastName === user.lastName || doc.email === user.email
+          return doc.phone === user.phone
         })
         if(valid) return res.sendStatus(500)
         db.collection('users').insertOne(user, (err, result) => {
@@ -107,18 +102,9 @@ async function init(){
     app.get('/users/search/phone/:phone', (req, res) => {
       res.setHeader('Content-Type', 'application/json')
 
-      db.collection('users').find( { phone: req.params.phone } ).toArray((err, docs) => {
-        if (err) return res.sendStatus(500)
-        res.send(docs)
-      })
-    })
-
-    app.get('/users/search/email/:email', (req, res) => {
-      res.setHeader('Content-Type', 'application/json')
-
-      db.collection('users').find( { email: req.params.email } ).toArray((err, docs) => {
-        if (err) return res.sendStatus(500)
-        res.send(docs)
+      db.collection('users').findOne( { phone: req.params.phone }, (err, doc) => {
+        if (err){ return res.sendStatus(500) }
+        res.send(doc)
       })
     })
 
@@ -126,15 +112,6 @@ async function init(){
       res.setHeader('Content-Type', 'application/json')
 
       db.collection('users').find( { _id: ObjectID( req.params.id ) } ).toArray((err, docs) => {
-        if (err) return res.sendStatus(500)
-        res.send(docs)
-      })
-    })
-
-    app.get('/users/search/premiumDate/:premiumDate', (req, res) => {
-      res.setHeader('Content-Type', 'application/json')
-
-      db.collection('users').find( { premiumDate: req.params.premiumDate } ).toArray((err, docs) => {
         if (err) return res.sendStatus(500)
         res.send(docs)
       })
@@ -149,15 +126,6 @@ async function init(){
       })
     })
 
-    app.get('/users/email/:mail', (req, res) => {
-      res.setHeader('Content-Type', 'application/json')
-
-      db.collection('users').findOne( { email: req.params.mail }, (err, doc) => {
-        if (err) return res.sendStatus(500)
-        res.send(doc)
-      })
-    })
-
     app.put('/users/:id', (req, res) => {
       res.setHeader('Content-Type', 'application/json')
       db.collection('users').findOne( { _id: ObjectID( req.params.id ) }, (err, doc) => {
@@ -166,53 +134,6 @@ async function init(){
         let 
           resultFirstName = doc.firstName,
           resultLastName = doc.lastName,
-          resultPatronymic = doc.patronymic,
-          resultEmail = doc.email,
-          resultPhone = doc.phone,
-          resultPassword = doc.password,
-          resultPrivilege = doc.privilege,
-          resultPremiumDate = doc.premiumDate
-        ;
-
-        if(req.body.firstName != undefined) resultFirstName = req.body.firstName
-        if(req.body.lastName != undefined) resultLastName = req.body.lastName
-        if(req.body.patronymic != undefined) resultPatronymic = req.body.patronymic
-        if(req.body.email != undefined) resultEmail = req.body.email
-        if(req.body.phone != undefined) resultPhone = req.body.phone
-        if(req.body.password != undefined) resultPassword = req.body.password
-        if(req.body.privilege != undefined) resultPrivilege = req.body.privilege
-        if(req.body.premiumDate != undefined) resultPremiumDate = req.body.premiumDate
-        
-
-        db.collection('users').updateOne(
-          { _id: ObjectID( req.params.id ) },
-          {$set:{
-            firstName: resultFirstName,
-            lastName: resultLastName,
-            patronymic: resultPatronymic,
-            email: resultEmail,
-            phone: resultPhone,
-            password: resultPassword,
-            privilege: resultPrivilege,
-            premiumDate: resultPremiumDate
-          }},
-          (err, result) => {
-            if (err){ return res.sendStatus(500) }
-            res.send(result)
-          }
-        )
-      })
-    })
-    app.put('/users/email/:mail', (req, res) => {
-      res.setHeader('Content-Type', 'application/json')
-      db.collection('users').findOne( { email: req.params.mail }, (err, doc) => {
-        if (err || doc === null) return res.sendStatus(500)
-        console.log(doc)
-        let 
-          resultFirstName = doc.firstName,
-          resultLastName = doc.lastName,
-          resultPatronymic = doc.patronymic,
-          resultEmail = doc.email,
           resultPhone = doc.phone,
           resultPassword = doc.password,
           resultPrivilege = doc.privilege
@@ -220,20 +141,16 @@ async function init(){
 
         if(req.body.firstName != undefined) resultFirstName = req.body.firstName
         if(req.body.lastName != undefined) resultLastName = req.body.lastName
-        if(req.body.patronymic != undefined) resultPatronymic = req.body.patronymic
-        if(req.body.email != undefined) resultEmail = req.body.email
         if(req.body.phone != undefined) resultPhone = req.body.phone
         if(req.body.password != undefined) resultPassword = req.body.password
         if(req.body.privilege != undefined) resultPrivilege = req.body.privilege
         
 
         db.collection('users').updateOne(
-          { email: req.params.mail },
+          { _id: ObjectID( req.params.id ) },
           {$set:{
             firstName: resultFirstName,
             lastName: resultLastName,
-            patronymic: resultPatronymic,
-            email: resultEmail,
             phone: resultPhone,
             password: resultPassword,
             privilege: resultPrivilege,
@@ -293,6 +210,73 @@ async function init(){
       db.collection('texts').findOne( { block: Number(req.params.block) }, (err, doc) => {
         if (err) return res.sendStatus(500)
         res.send(doc)
+      })
+    })
+
+    app.post('/Videos', (req, res) => {
+      res.setHeader('Content-Type', 'application/json')
+      const video = {
+        number: req.body.number,
+        isOpen: req.body.isOpen,
+        title: req.body.title,
+        date: req.body.date,
+        src: req.body.src
+      }
+      db.collection('Videos').insertOne(video, (err, result) => {
+        if (err) return res.sendStatus(500)
+        res.send(result)
+      })
+    })
+
+    app.get('/Videos', (req, res) => {
+      res.setHeader('Content-Type', 'application/json')
+
+      db.collection('Videos').find().toArray((err, docs) => {
+        if (err) return res.sendStatus(500)
+        res.send(docs)
+      })
+    })
+
+    app.get('/Videos/:id', (req, res) => {
+      res.setHeader('Content-Type', 'application/json')
+      db.collection('Videos').findOne( { _id: ObjectID( req.params.id ) }, (err, doc) => {
+        if (err) return res.sendStatus(500)
+        res.send(doc)
+      })
+    })
+
+    app.post('/Validation/Users/Admin', (req, res) => {
+      res.setHeader('Content-Type', 'application/json')
+      db.collection('users').find( { privilege: 'admin' }).toArray((err, docs) => {
+        let check = 0
+        if (err) return res.sendStatus(500)
+        for(let i = 0; i < docs.length; i++)
+        {
+          console.log(docs[i].password != req.body.password &&
+            docs[i].firstName != req.body.firstName &&
+            docs[i].lastName != req.body.lastName &&
+            docs[i].phone != req.body.phone &&
+            docs[i].privilege != 'admin')
+            
+          if(
+            docs[i].password != req.body.password &&
+            docs[i].firstName != req.body.firstName &&
+            docs[i].lastName != req.body.lastName &&
+            docs[i].phone != req.body.phone &&
+            docs[i].privilege != 'admin'
+          )
+          {
+            check++
+            console.log(check, docs.length)
+            if(check == docs.length){
+              res.sendStatus(500)
+            }
+          }
+          else {
+            console.log(check, docs.length)
+            res.sendStatus(200)
+          }
+        }
       })
     })
   }

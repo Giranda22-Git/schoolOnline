@@ -1,5 +1,8 @@
 <template>
     <section class="wrapper" id="sec7">
+        <transition name="fade">
+            <modalPay v-show="isModalVision" class="modalPay" @close="close" @click="open" @autorization="autorization" />
+        </transition>
         <div class="wrapper-front">
             <div class="front">
                 <div class="anime animate__animated" id="sec7-animate">
@@ -11,10 +14,12 @@
                         Курсты дәл қазір сатып ал! </span>
                         
                     </p>
-                    <button>
-                        <router-link to="/kaspi-pay"> ТӨЛЕМГЕ ӨТУ </router-link>
+                    <button @click="open">
+                        ТӨЛЕМГЕ ӨТУ
                     </button>
+                    
                 </div>
+                
             </div>
             <div class="hover-block">
 
@@ -24,9 +29,28 @@
 </template>
 
 <script>
+import axios from 'axios'
+import modalPay from '@/components/modalPay.vue'
 const $ = require( "jquery" )
 export default {
     name: 'Section3',
+    data: () => ({
+        isModalVision: false
+    }),
+    methods:{
+        open() {
+            this.isModalVision = true
+        },
+        close() {
+            this.isModalVision = false
+        },
+        autorization(data) {
+            this.$emit('autorization', data)
+        }
+    },
+    components: {
+        modalPay
+    },
     mounted() {
         $('.hover-block').hover(
             function () {
@@ -55,6 +79,21 @@ export default {
     @font-face
         font-family: GothamMedium
         src: url(../assets/Gotham/GothamMedium.ttf)
+    .fade-enter-active, .fade-leave-active
+        transition-property: opacity
+        transition-duration: .25s
+
+    .fade-enter-active
+        transition-delay: 0s
+
+    .fade-enter, .fade-leave-active
+        opacity: 0
+    .modalPay
+        position: absolute
+        left: 50%
+        top: 50%
+        transform: translate(-50%, -50%)
+        z-index: 100
     .hover-block
         width: 30vw
         height: 70vh
@@ -66,6 +105,7 @@ export default {
         height: 100vh
         background: url(../assets/section3/firstElement.svg) center no-repeat
         background-size: cover
+        position: relative
         .wrapper-front
             width: 100vw
             height: 100vh
@@ -85,10 +125,15 @@ export default {
             .anime
                 width: 100%
                 height: 100%
+                display: flex
+                flex-direction: column
+                justify-content: center
+                align-items: flex-start
             .SVG_Text
                 width: 100%
                 height: 25%
                 background: url(../assets/section3/secondElement.svg) -10% 45% no-repeat
+                
             p
                 color: #FFF
                 text-align: left
@@ -102,7 +147,7 @@ export default {
                         color: rgb(245, 0, 65)
                 .third
                     font-family: GothamLight
-                    font-size: 2.2vh
+                    font-size: 2.5vh
             button
                 font-family: GothamBold
                 font-size: 6vh
@@ -122,30 +167,37 @@ export default {
     @media screen and ( max-width: 480px )
         .hover-block
             height: 31.5vh !important
+        .wrapper-modal
+            height: 60vh !important
+        .close
+            top: 20% !important
         .wrapper
-            height: 40vh !important
+            height: 60vh !important
         .wrapper-front
-            height: 40vh !important
+            height: 60vh !important
             background-size: 100% !important
             .front
-                height: 40vh !important
+                height: 60vh !important
+                align-items: center !important
                 .anime
                     .SVG_Text
                         background: url(../assets/section3/secondElement_mobile.svg) !important
                         height: 10vh
-                        background-size: 100% !important
+                        background-size: 120% !important
                         background-position-y: 28% !important
+                        background-position-x: -70% !important
                     p
                         .first
                             margin-left: 2vh
-                            font-size: 3vh
+                            font-size: 4vh
                         .second
                             margin-left: 2vh
                             font-size: 4vh
                         .third
                             padding-left: 2vh
-                            font-size: 1.5vh
+                            font-size: 2.5vh
                     button
-                        margin-left: 2vh
                         font-size: 3.2vh !important   
+                        width: 100% !important
+                        height: 12% !important
 </style>

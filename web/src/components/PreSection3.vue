@@ -7,6 +7,7 @@
             <div id="block1" class="block"></div>
             <div id="block2" class="block"></div>
             <div id="block3" class="block"></div>
+            <div id="block4" class="block"></div>
           </div>
           <a href="#sec7" class="button">
             МҮМКІНДІГІҢДІ <br>
@@ -28,6 +29,7 @@ export default {
       texts: [
         "lorem ipsum",
         "lorem ipsum",
+        "lorem ipsum",
         "lorem ipsum"
       ]
     },
@@ -42,11 +44,20 @@ export default {
 
         let sec5 = $('#sec5').offset().top
         window.addEventListener('scroll', () => {
-          if (this.check && pageYOffset >= sec5 - ($('#sec5').height() - ($('#sec5').height() / 4))){
+          if (this.check && pageYOffset >= sec5 - ($('#sec5').height() - ($('#sec5').height() / 2))){
+            const inputFour = new TypeIt('#block4', {
+              strings: this.result.texts[3],
+              speed: 50,
+              loop: false
+            })
+
             const inputThree = new TypeIt('#block3', {
               strings: this.result.texts[2],
               speed: 50,
-              loop: false
+              loop: false,
+              afterComplete: async ( step, instance ) => {
+                await inputFour.go()
+              }
             })
 
             const inputTwo = new TypeIt('#block2', {
@@ -75,6 +86,7 @@ export default {
     }
   },
   mounted() {
+    this.check = true
     this.allTexts()
   }
 }
@@ -95,7 +107,7 @@ export default {
   .wrapper
     width: 100vw
     height: 100vh
-    background: #000 url(../assets/PreSection3/bg.svg) center no-repeat
+    background: #000 url(../assets/PreSection3/bg.svg) center top no-repeat
     background-size: cover
     .front
       max-width: 1440px
@@ -119,17 +131,17 @@ export default {
           height: 20%
         .inputs-wrapper
           width: 100%
-          height: 35% 
+          height: 50% 
           display: flex
           flex-direction: column
           justify-content: space-evenly
           align-items: flex-start
           .block
-            height: 22.5%
-            width: 50%
+            height: 17.5%
+            width: 60%
             background-color: #1D1D1D
             font-family: GothamBold
-            font-size: 2vh
+            font-size: 2.5vh
             border-radius: 25px
             display: flex
             justify-content: center
@@ -152,5 +164,23 @@ export default {
           cursor: pointer
           color: white
           text-decoration: none
-
+  @media screen and ( max-width: 1024px )
+    .wrapper
+      background-position: center
+      .front
+        .title
+          font-size: 4.8vh !important
+          padding-bottom: 10% !important
+          text-align: center
+        .Text
+          color: white
+          font-family: GothamLight
+          font-size: 3vw !important
+          padding-left: 4%
+        .block
+          width: 100% !important
+          font-size: 1.8vh !important
+          text-align: center 
+        .button
+          width: 90% !important
 </style>

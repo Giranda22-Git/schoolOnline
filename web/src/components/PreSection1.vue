@@ -12,8 +12,7 @@
               <li v-html="result.texts[5]"></li> <br> <br>
               <li v-html="result.texts[6]"></li> <br> <br>
               <li v-html="result.texts[7]"></li> <br> <br>
-              <li v-html="result.texts[8]"></li> <br> <br>
-              <li v-html="result.texts[9]"></li>
+              <li v-html="result.texts[8]"></li>
             </ul>
           </div>
         </div>
@@ -35,14 +34,13 @@ export default {
         "lorem ipsum",
         "lorem ipsum",
         "lorem ipsum",
-        "lorem ipsum",
         "lorem ipsum"
       ]
     }
   }),
   methods: {
     async allTexts() {
-      await axios.get(`https://api.udb.kz/texts/${3}`)
+      await axios.get(`https//api.udb.kz/texts/${3}`)
       .then( response => {
         this.result = response.data
       })
@@ -94,7 +92,7 @@ export default {
           & li
             position: relative
             font-family: GothamLight
-            font-size: 2vh
+            font-size: 2.5vh
 
         ul li::before
           content: "\2022"
@@ -106,12 +104,18 @@ export default {
           left: -2%
           top: 50%
           transform: translateY(-43%)
-  @media screen and ( max-width: 480px )
+  @media screen and ( max-width: 550px )
     .wrapper
-      height: 17.5vh !important
+      height: 100vh !important
       .front
-        .SVG_text
-          background-size: 95%
-        .Text
-          font-size: 3vw !important
+        .title
+          font-size: 5vh !important
+          padding-bottom: 8% !important
+        ul
+          padding-left: 5% !important
+        li
+          font-size: 2.3vh !important
+        ul li::before
+          left: -5% !important 
+
 </style>

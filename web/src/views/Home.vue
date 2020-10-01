@@ -6,7 +6,7 @@
     <PreSection2 />
     <PreSection3 />
     <Section2 />
-    <Section3 />
+    <Section3 @autorization="autorization" />
   </div>
 </template>
 
@@ -30,6 +30,11 @@ export default {
     SectionPrice,
     PreSection2,
     PreSection3
+  },
+  methods: {
+    autorization(data) {
+      this.$emit('autorization', data)
+    }
   }
 }
 </script>

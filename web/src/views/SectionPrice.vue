@@ -6,47 +6,51 @@
       </div>
       <div class="start_wrapper"> 
         <div class="wrapper-top-content animate__animated" id="sec2-left-animate">
-          <div class="block-1 block">
-            <div class="picture">
+          <div class="wrapper-left-top-content">
+            <div class="block-1 block">
+              <div class="picture first-picture">
 
+              </div>
+              <div class="text">
+                <p> 1. ШЕШЕНДІК <br>
+        ӨНЕР </p>
+              </div>
             </div>
-            <div class="text">
-              <p> 1. ШЕШЕНДІК <br>
-       ӨНЕР </p>
+            <div class="block-2 block">
+              <div class="picture">
+
+              </div>
+              <div class="text">
+              <p>  2. КИНО ЖӘНЕ <br>
+        ТЕАТР </p>
+              </div>
             </div>
           </div>
-          <div class="block-2 block">
-            <div class="picture">
+          <div class="wrapper-right-top-content">
+            <div class="block-3 block">
+              <div class="picture">
 
+              </div>
+              <div class="text">
+              <p> 3. ЭСТРАДА </p>
+              </div>
             </div>
-            <div class="text">
-             <p>  2. КИНО ЖӘНЕ <br>
-       ТЕАТР </p>
+            <div class="block-4 block">
+              <div class="picture">
+                <div class="picture-front"></div>
+              </div>
+              <div class="text">
+              <p> 4. КӨРКЕМ <br>
+      МІНЕЗ </p>
+              </div>
             </div>
-          </div>
-          <div class="block-3 block">
-            <div class="picture">
+            <div class="block-5 block">
+              <div class="picture">
 
-            </div>
-            <div class="text">
-             <p> 3. ЭСТРАДА </p>
-            </div>
-          </div>
-          <div class="block-4 block">
-            <div class="picture">
-              <div class="picture-front"></div>
-            </div>
-            <div class="text">
-             <p> 4. КӨРКЕМ <br>
-    МІНЕЗ </p>
-            </div>
-          </div>
-          <div class="block-5 block">
-            <div class="picture">
-
-            </div>
-            <div class="text">
-             <p> 5. СПОРТ </p>
+              </div>
+              <div class="text">
+              <p> 5. СПОРТ </p>
+              </div>
             </div>
           </div>
         </div>
@@ -91,6 +95,7 @@ export default {
   @font-face
     font-family: GothamBold
     src: url(../assets/Gotham/GothamBold.ttf)
+
   .wrapper
     width: 100vw
     height: 100vh
@@ -122,12 +127,33 @@ export default {
           padding-top: 3%
           .text-block
             font-family: GothamLight
-            font-size: 2vh
+            font-size: 2.5vh
             color: white
         .wrapper-top-content
           display: flex
           justify-content: space-evenly
           align-items: center
+          width: 100%
+          height: 50%
+          .wrapper-left-top-content
+            display: flex
+            justify-content: flex-end
+            align-items: center
+            height: 100%
+            width: 40%
+            .block
+              width: 40% 
+              height: 60%
+              margin-left: 9%
+          .wrapper-right-top-content
+            width: 60%
+            height: 100%
+            display: flex
+            justify-content: space-evenly !important
+            align-items: center
+            .block
+              width: 26.665% 
+              height: 60%
           .block
             width: 15%
             height: 60%
@@ -135,6 +161,8 @@ export default {
               width: 100%
               height: 70%
               background-size: cover !important
+            .first-picture
+              background-position-x: right !important
             .text
               width: 100%
               height: 30%
@@ -165,9 +193,34 @@ export default {
           .block-5
             .picture
               background: #000 url(../assets/SectionPrice/icons/five.svg) center no-repeat
-
-
-
+  @media screen and (max-width: 1100px) 
+    .wrapper-top-content
+      flex-direction: column !important
+      height: 58% !important
+      .wrapper-left-top-content
+        justify-content: space-evenly !important
+      .wrapper-left-top-content, .wrapper-right-top-content
+        width: 100% !important
+        height: 40% !important
+        .block
+          height: 100% !important
+          margin-left: 0 !important
+    .wrapper-bottom-content
+      padding: 0 !important
+    .text-block
+      font-size: 2.3vh !important
+      width: 90% !important
+      height: 100% !important
+      margin: 0 auto !important
+    .SVG_Text
+      background-position-x: 32%  !important
+      background-position-y: 45%  !important
+      background-size: 124% !important
+    .picture
+      height: 60% !important
+    .text
+      font-size: 2vh !important
+      height: 40% !important
         
 
 </style>

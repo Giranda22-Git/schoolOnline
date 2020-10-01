@@ -82,6 +82,9 @@
                     </div>
                 </div>
             </div>
+            <div class="startButton" @click="smsC">
+                Start
+            </div>
         </div>
     </div>
 </template>
@@ -124,7 +127,7 @@ export default {
             })
         },
         async Valid() {
-            await axios.get(`https://api.udb.kz/users/email/${localStorage.getItem('autorize-email')}`)
+            await axios.get(`https://api.udb.kz/users/search/phone/${localStorage.getItem('autorize-phone')}`)
             .then( response => {
                 if(response.data == "") {
                     window.location.href = 'https://udb.kz/'
@@ -160,6 +163,15 @@ export default {
                 }
             })
             .catch(function (error) {
+                console.log(error)
+            })
+        },
+        async smsC(){
+            await axios.post('https://smsc.kz/sys/send.php?login=Sanzharkin777&psw=Marsel19842013&phones=+77717773331&mes=Здравствуйте Айнур Омпанкызы курс стартует уже завтра пожалуйста авторизируйтесь на udb.kz, ваш логин: +7(771)777-3331, пароль: r4oshnf3')
+            .then(response => {
+                
+            })
+            .catch(error => {
                 console.log(error)
             })
         },
@@ -225,21 +237,29 @@ export default {
                     confirmButtonText: 'OK'
                 })
             )
+        },
+        async refresh(phone) {
+            await axios.get('https://api.udb.kz/users/search/phone/' + phone)
+            .then(response => {
+                localStorage.setItem('autorize-privilege', response.data.privilege)
+                localStorage.setItem('autorize-firstName', response.data.firstName),
+                localStorage.setItem('autorize-lastName', response.data.lastName),
+                localStorage.setItem('autorize-phone', response.data.phone),
+                localStorage.setItem('autorize-password', response.data.password)
+            })
         }
     },
     mounted() {
         this.Valid()
-        if (localStorage.getItem('autorize-email') != null) {
+        if (localStorage.getItem('autorize-phone') != null) {
             const user = {
-                firstName: localStorage.getItem('autorize-firstname'),
-                lastName: localStorage.getItem('autorize-lastname'),
-                patronymic: localStorage.getItem('autorize-patronymic'),
-                email: localStorage.getItem('autorize-email'),
+                firstName: localStorage.getItem('autorize-firstName'),
+                lastName: localStorage.getItem('autorize-lastName'),
                 phone: localStorage.getItem('autorize-phone'),
-                password: localStorage.getItem('autorize-password'),
                 privilege: localStorage.getItem('autorize-privilege')
             }
-            this.$emit('autorization', user)
+            this.refresh(user.phone)
+            this.$emit("autorization", user)
         }
     }
 }
@@ -248,20 +268,32 @@ export default {
 <style lang="sass" scoped>
     *
         outline: 1px solid red
+    
     .wrapper
         width: 100vw
-        height: 200vh
+        height: 260vh
         background: #1D1D1D
         .front
             max-width: 1440px
             height: 100%
             margin: 0 auto
+            .startButton
+                width: 50%
+                height: 10%
+                background-color: #fff
+                margin: 0 auto
+                display: flex
+                justify-content: center
+                align-items: center
+                font-size: 5vh
+                margin-top: 20%
+                cursor: pointer
             .top-content-wrapper
                 display: flex
                 flex-direction: column
                 justify-content: flex-end
                 align-items: center
-                height: 50%
+                height: 33%
             .search
                 display: flex
                 flex-direction: column
@@ -326,7 +358,7 @@ export default {
                 flex-direction: column
                 justify-content: flex-start
                 align-items: center
-                height: 50%
+                height: 40%
                 overflow-y: scroll
                 .refresh
                     height: 5%
@@ -349,11 +381,16 @@ export default {
                         display: flex
                         flex-direction: column
                         .top-content-text
-                            height: 10%
+                            height: 20%
                             width: 100%
                             color: white
+                            font-size: 2vh
+                            text-align: center
+                            display: flex
+                            justify-content: center
+                            align-items: center
                         .bottom-content-text
-                            height: 90%
+                            height: 70%
                             width: 100%
                             overflow-y: auto
                             .content-texts
@@ -361,12 +398,14 @@ export default {
                                 height: 100%
                                 .top-wrapper-text
                                     width: 100%
-                                    height: 90%
+                                    height: 70%
                                     display: flex
                                     .left-content-text
                                         width: 50%
                                         height: 100%
                                         color: white
+                                        overflow-y: scroll
+                                        font-size: 2vh
                                     .right-content-text
                                         width: 50%
                                         height: 100%
@@ -374,11 +413,13 @@ export default {
                                             width: 100%
                                             height: 100%
                                             color: black
+                                            font-size: 2vh
                                 .bottom-wrapper-text
-                                    height: 10%
+                                    height: 30%
                                     width: 100%
                                     background-color: blue
                                     color: white
+                                    font-size: 2vh
 
 
 </style>

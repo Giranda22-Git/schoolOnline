@@ -1,0 +1,28 @@
+[{
+  "_id": {
+    "$oid": "5f74275a9134903ca020abfa"
+  },
+  "firstName": "Dimash",
+  "lastName": "Kenzhegaliev",
+  "phone": "+7(705)553-9966",
+  "password": "mf3q32he",
+  "privilege": "admin"
+},{
+  "_id": {
+    "$oid": "5f7568ef2e7e54580f089344"
+  },
+  "firstName": "Айнур",
+  "lastName": "Оcпанкызы",
+  "phone": "+7(771)777-3331",
+  "password": "ymxdv443",
+  "privilege": "admin"
+},{
+  "_id": {
+    "$oid": "5f75aa4492b953669f55f737"
+  },
+  "firstName": "admin",
+  "lastName": "Жанерке",
+  "phone": "+7(700)117-7198",
+  "password": "cuphuu6s",
+  "privilege": "admin"
+}]

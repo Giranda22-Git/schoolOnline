@@ -2,31 +2,31 @@
     <div class="wrapper">
         <div class="front ">
             <div class="left-content-wrapper animate__animated animate__bounceInLeft">
-                <div class="video-wrapper">
-                    <video autoplay loop preload src="../assets/section2/Gif.mp4" class="left-video"></video>
-                    <video autoplay loop preload src="../assets/section2/Gif.mp4" class="right-video"></video>
-                </div>
                 <div class="autorized" >
                     <div class="account_icon"></div>
                     <div class="username"> {{ autorizedData.lastName }} {{ autorizedData.firstName }} </div>
-                    <div class="emailadd"> {{ autorizedData.email }} </div>
                 </div>
                 <div class="video-link">
                     <ul>
-                        <router-link to="/watch">
-                            <span>1. Сөз қадірің өз қадірің! </span>
+                        <div class="panel"
+                            v-for="index in VideoList"
+                            :key="index._id"
+                        >
+                            <router-link 
+                                v-if="autorizedData.privilege == 'admin' || autorizedData.privilege == 'premium' && index.isOpen"
+                                :to='{ path: `/watch/${ index._id }` }'
+                                @click="returnData(index)"
+                            ></router-link>
+                            <span>{{ index.title }}</span> <span class="date">&nbsp; {{ index.date }} </span>
+                        </div>
+                        <router-link to="/Account" class="post-data a">
+                            <span>ҮЙ ТАПСЫРМАСЫ</span>
                         </router-link>
-                        <router-link to="/watch">
-                            <span>2. Киелі сахна</span>
+                        <router-link to="/Account" class="post-data a">
+                            <span>27 қазан сағат 00:00 дейін <br> ҮЙ ТАПСЫРМАСЫН ЖҮКТЕ</span>
                         </router-link>
-                        <router-link to="/watch">
-                            <span>3. Театр, кино!</span>
-                        </router-link>
-                        <router-link to="/watch">
-                            <span>4. Әннің де естісі бар есері бар </span>
-                        </router-link>
-                        <router-link to="/watch">
-                            <span>5. Табыс формуласы</span>
+                        <router-link to="/Account" class="post-data a">
+                            <span>Сертификат</span>
                         </router-link>
                     </ul>
                 </div>
@@ -36,36 +36,47 @@
                 <div class="Comp2"></div>
                 <div class="Comp3"></div>
                 <div class="Comp4"></div>
-                <div class="Comp5">Басталуы: 30 қыркүйек</div>
-                <router-link to="/kaspi-pay" v-if="autorizedData.privilege == 'user' "> ТӨЛЕМГЕ ӨТУ </router-link>
-                <router-link to="/kaspi-pay" v-if="autorizedData.privilege == 'premium' "> Tехникалық қолдау </router-link>
-                <router-link to="/admin" v-if="autorizedData.privilege == 'admin' "> Admin </router-link>
-
-                <div @click="open" class="Comp6"></div>
-                <div @click="open" class="options_mobile"><span>Теңшеу</span></div>
+                <div class="Comp5">Басталуы: 15 қазан</div>
+                <a href="/admin" v-if="autorizedData.privilege == 'admin' "> Admin </a>
             </div>
-            <modalSettings v-show="isModalVisible" @close="close" :autorizedData="autorizedData" class="modalSettings" @autorized="autorized" />
         </div>
     </div>
 </template>
 
 <script>
-import modalSettings from '@/components/modalSettings.vue'
+import axios from 'axios'
+const $ = require( "jquery" )
 export default {
     name: 'Account',
     data: () => ({
-        isModalVisible: false
+        isModalVisible: false,
+        theme: "locked",
+        isTheme: false
     }),
-    components: {
-        modalSettings
-    },
     props: {
         autorizedData: {
             type: Object,
             default: () => {}
+        },
+        VideoList: {
+            type: Array,
+            default: []
+        }
+    },
+    watch: {
+        autorizedData(newVal, oldVal){
+            this.autorizedData = newVal
+            if(this.autorizedData.privilege != 'premium' || this.autorizedData.privilege != 'admin'){
+                this.isTheme = false
+            } else {
+                this.isTheme = true
+            }
         }
     },
     methods: {
+        returnData(data) {
+            this.$emit('VideosDataInput', data)
+        },
         autorized(data) {
             this.$emit('autorized', data)
         },
@@ -74,20 +85,33 @@ export default {
         },
         open() {
             this.isModalVisible = true
+        },
+        async refresh(phone) {
+            await axios.get('https://api.udb.kz/users/search/phone/' + phone)
+            .then(response => {
+                localStorage.setItem('autorize-privilege', response.data.privilege)
+                localStorage.setItem('autorize-firstName', response.data.firstName),
+                localStorage.setItem('autorize-lastName', response.data.lastName),
+                localStorage.setItem('autorize-phone', response.data.phone),
+                localStorage.setItem('autorize-password', response.data.password)
+            })
         }
     },
     mounted() {
-        if (localStorage.getItem('autorize-email') != null) {
+        if(this.autorizedData.privilege != 'premium' || this.autorizedData.privilege != 'admin') {
+            this.isTheme = false
+        } else {
+            this.isTheme = true
+        }
+        if (localStorage.getItem('autorize-phone') != null) {
             const user = {
-                firstName: localStorage.getItem('autorize-firstname'),
-                lastName: localStorage.getItem('autorize-lastname'),
-                patronymic: localStorage.getItem('autorize-patronymic'),
-                email: localStorage.getItem('autorize-email'),
+                firstName: localStorage.getItem('autorize-firstName'),
+                lastName: localStorage.getItem('autorize-lastName'),
                 phone: localStorage.getItem('autorize-phone'),
-                password: localStorage.getItem('autorize-password'),
                 privilege: localStorage.getItem('autorize-privilege')
             }
-            this.$emit('autorization', user)
+            this.refresh(user.phone)
+            this.$emit("autorization", user)
         }
     }
     
@@ -137,7 +161,7 @@ export default {
                 .autorized
                     display: none
                 .video-link
-                    height: 40%
+                    height: 60%
                     width: 100%
                     ul
                         display: flex
@@ -145,7 +169,7 @@ export default {
                         justify-content: space-evenly
                         align-items: center
                         height: 100%
-                        a
+                        .panel
                             width: 80%
                             height: 10%
                             border-radius: 15px
@@ -154,11 +178,36 @@ export default {
                             align-items: center
                             justify-content: center
                             text-decoration: none
-                            span
-                                color: #FA1452
-                                font-family: GothamBold
-                                font-size: 2vh
-                                display: block
+                            position: relative
+                            a
+                                width: 100%
+                                height: 100%
+                                border-radius: 15px
+                                display: flex
+                                align-items: center
+                                justify-content: center
+                                text-decoration: none
+                                position: absolute
+                        .a
+                            width: 80%
+                            height: 10%
+                            border-radius: 15px
+                            background-color: #3D3D3D
+                            display: flex
+                            align-items: center
+                            justify-content: center
+                            text-decoration: none
+                            position: relative
+                        .date
+                            color: white
+                            margin-left: 2%
+                        span
+                            color: #FA1452
+                            font-family: GothamBold
+                            font-size: 2vh
+                            display: block
+                        .post-data
+                            background-color: #fff
 
 
             .right-content-wrapper
@@ -209,19 +258,6 @@ export default {
                     font-size: 3.1vh
                     font-weight: 100
                     z-index: 1
-                .Comp6
-                    position: absolute
-                    width: 2vw
-                    height: 2vw
-                    background: url(../assets/settings.svg) center no-repeat
-                    top: 11%
-                    right: 45%
-                    background-size: 90%
-                    cursor: pointer
-                    transition: .3s
-                    z-index: 5
-                    &:hover
-                        transform: scale(1.2)
                 .options_mobile
                     display: none
                 
@@ -265,14 +301,8 @@ export default {
                     width: 100%
                     height: 12Tcvw
                     .account_icon
-                        background: url(../assets/user1.svg) center no-repeat
-                        position: absolute
-                        width: 10vw
-                        height: 10vw
-                        left: 8%
+                        display: none
                     .username
-                        text-align: center
-                    .emailadd
                         text-align: center
                 .video-link
                     height: 80vh !important
@@ -291,6 +321,7 @@ export default {
                             align-items: center
                             justify-content: center
                             text-decoration: none
+                            pointer-events: none !important
                             span
                                 color: #FA1452
                                 font-family: GothamBold
@@ -313,19 +344,6 @@ export default {
                     display: none !important
                 .Comp6
                     display: none !important
-                .options_mobile
-                    display: block !important
-                    width: 80%
-                    height: 7.5vh
-                    border-radius: 15px
-                    text-align: center
-                    background-color: #3D3D3D
-                    color: white
-                    font-family: GothamBold
-                    font-size: 2vh
-                    margin: 0 auto
-                    span
-                        line-height: 7.5vh
                 a
                     display: none !important
 

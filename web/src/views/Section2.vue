@@ -6,7 +6,7 @@
                     Курс авторы
                 </div>
                 <div class="text">
-                    <span class="first"> Төреғали Төреәлі </span> <br>
+                    <span class="first"> Төреғали Төреали </span> <br>
                     <span class="second"> ҰЛЫ ДАЛА БАЛАСЫ </span> <br> <br> <br>
                     <ul>
                         <li v-html="result.texts[0]"></li> <br>
@@ -85,11 +85,13 @@ export default {
                     font-family: kurut
                     font-size: 7vh
                     color: #FA1451
+                    padding-left: 3%
                 .text
                     color: white
-                    font-size: 1.8vh
+                    font-size: 2.5vh
                     font-family: GothamLight
                     width: 100%
+                    padding-left: 2%
                     .first
                         font-size: 2.8vh
                     .second
@@ -101,7 +103,7 @@ export default {
                         & li
                             position: relative
                             font-family: GothamLight
-                            font-size: 2vh
+                            font-size: 2.2vh
 
                     ul li::before
                         content: "\2022"
@@ -113,20 +115,33 @@ export default {
                         left: -2%
                         top: 50%
                         transform: translateY(-43%)
-    @media screen and ( max-width: 480px )
+    @media screen and ( max-width: 1024px )
         .wrapper
             height: 100vh !important
-            .bottom-content-wrapper
-                .left-content-wrapper
-                    width: 100% !important
-                    padding: 2% !important
-                    .SVG_Text
-                        margin-left: 5vh !important                        
-                        background-size: 100% !important
-                    .text
-                        font-size: 1.6vh !important
-                        line-height: 2.5vh !important
-                        .second
-                            font-size: 3vh !important
+            background-position: center
+            .left-content-wrapper
+                width: 100% !important
+                padding: 2% !important
+                .SVG_Text
+                    margin-left: 0vh !important                        
+                    background-size: 100% !important
+                    text-align: center !important
+                .text
+                    line-height: 2.5vh !important
+                    
+                    ul li
+                        font-size: 2.25vh !important
+                    ul li:before
+                        left: -5% !important
+                    .first
+                        text-align: center !important
+                        width: 100% !important
+                        display: block
+                    .second
+                        font-size: 3vh !important
+                        text-align: center !important
+                        width: 100% !important
+                        display: block
+            
 
 </style>

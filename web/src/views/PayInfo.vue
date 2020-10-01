@@ -50,9 +50,8 @@ CVV2/ CVC2 — это трёхзначный код безопасности, н
 По вопросам, касающимся настоящей политики, просьба обращаться по адресу <span class="subTitle"> info@udb.kz </span><br><br>
 
 <span class="subTitle"> Юридическое лицо </span><br>
-ИП "GCLV Connect" <br>
-РНН 600900772374 <br>
-БИН 920712401245 <br>
+ИП "TORESH" <br>
+ИИН 920712401245 <br>
 город Алматы, Калкаман-2 микрорайон, Айбергенова, 75<br>
 
         </div>
@@ -60,20 +59,31 @@ CVV2/ CVC2 — это трёхзначный код безопасности, н
 </template>
 
 <script>
+import axios from 'axios'
 export default {
     name: 'OBJECTIVES',
+    methods: {
+        async refresh(phone) {
+            await axios.get('https://api.udb.kz/users/search/phone/' + phone)
+            .then(response => {
+                localStorage.setItem('autorize-privilege', response.data.privilege)
+                localStorage.setItem('autorize-firstName', response.data.firstName),
+                localStorage.setItem('autorize-lastName', response.data.lastName),
+                localStorage.setItem('autorize-phone', response.data.phone),
+                localStorage.setItem('autorize-password', response.data.password)
+            })
+        }
+    },
     mounted() {
-        if (localStorage.getItem('autorize-email') != null) {
+        if (localStorage.getItem('autorize-phone') != null) {
             const user = {
-                firstName: localStorage.getItem('autorize-firstname'),
-                lastName: localStorage.getItem('autorize-lastname'),
-                patronymic: localStorage.getItem('autorize-patronymic'),
-                email: localStorage.getItem('autorize-email'),
+                firstName: localStorage.getItem('autorize-firstName'),
+                lastName: localStorage.getItem('autorize-lastName'),
                 phone: localStorage.getItem('autorize-phone'),
-                password: localStorage.getItem('autorize-password'),
                 privilege: localStorage.getItem('autorize-privilege')
             }
-            this.$emit('autorization', user)
+            this.refresh(user.phone)
+            this.$emit("autorization", user)
         }
     }
 }

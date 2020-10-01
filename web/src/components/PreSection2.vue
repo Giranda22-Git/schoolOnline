@@ -70,8 +70,6 @@ export default {
     width: 100vw
     height: 100vh
     position: relative
-    background: linear-gradient(to bottom, #000, 90%, lighten(#272727, 3%));
-    
 
     .front
       max-width: 1440px
@@ -102,7 +100,7 @@ export default {
           & li
             position: relative
             font-family: GothamLight
-            font-size: 2.2vh
+            font-size: 2.5vh
 
         ul li::before
           content: "\2022"
@@ -116,10 +114,23 @@ export default {
           transform: translateY(-43%)
   @media screen and ( max-width: 480px )
     .wrapper
+      background: #000
+      .bg
+        display: none !important
       .front
+        .title
+          font-size: 4.8vh !important
+          padding-bottom: 10% !important
+          text-align: center
         .Text
           color: white
           font-family: GothamLight
-          font-size: 3vw !important
           padding-left: 4%
+        
+        ul
+          padding-left: 5% !important
+        li
+          font-size: 2.8vh !important
+        ul li::before
+          left: -5% !important 
 </style>
