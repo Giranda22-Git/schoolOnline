@@ -101,7 +101,7 @@ export default {
                 phone: phone
             }
             try {
-                await axios.post('https://api.udb.kz/users', params)
+                await axios.post('http://localhost:3000/users', params)
                 .then( response => { this.register = response.data } )
                 .catch(function (error) {
                     sweetalert2.fire({
@@ -159,14 +159,14 @@ export default {
                 {
                     onSuccess: async function (options) { // success
                         if( localStorage.getItem('autorize-phone') != null ){
-                            await axios.get('https://api.udb.kz/users/search/phone/'+localStorage.getItem('autorize-phone'))
+                            await axios.get('http://localhost:3000/users/search/phone/'+localStorage.getItem('autorize-phone'))
                             .then( async response => {
                                 if ( response.data.phone == localStorage.getItem('autorize-phone') && 
                                 response.data.lastName == localStorage.getItem('autorize-lastName') &&
                                 response.data.firstName == localStorage.getItem('autorize-firstName'))
                                 {
                                     try{
-                                        await axios.put('https://api.udb.kz/users/'+response.data._id, {privilege: "premium"})
+                                        await axios.put('http://localhost:3000/users/'+response.data._id, {privilege: "premium"})
                                         .catch(function (error) {
                                             sweetalert2.fire({
                                                 title: 'Ошибка',
@@ -177,7 +177,7 @@ export default {
                                             throw new Error(error)
                                         })
                                         .then( async inCache => {
-                                            await axios.get('https://api.udb.kz/users/'+response.data._id)
+                                            await axios.get('http://localhost:3000/users/'+response.data._id)
                                             .catch(function (error) {
                                                 throw new Error(error)
                                             })

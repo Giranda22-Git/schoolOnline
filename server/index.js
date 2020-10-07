@@ -99,10 +99,19 @@ async function init(){
       })
     })
 
-    app.get('/users/search/phone/:phone', (req, res) => {
+    app.get('/users/search/one/phone/:phone', (req, res) => {
       res.setHeader('Content-Type', 'application/json')
 
       db.collection('users').findOne( { phone: req.params.phone }, (err, doc) => {
+        if (err){ return res.sendStatus(500) }
+        res.send(doc)
+      })
+    })
+    
+    app.get('/users/search/phone/:phone', (req, res) => {
+      res.setHeader('Content-Type', 'application/json')
+
+      db.collection('users').findOne( { phone: req.params.phone } ).toArray((err, doc) => {
         if (err){ return res.sendStatus(500) }
         res.send(doc)
       })
@@ -257,7 +266,7 @@ async function init(){
             docs[i].lastName != req.body.lastName &&
             docs[i].phone != req.body.phone &&
             docs[i].privilege != 'admin')
-            
+
           if(
             docs[i].password != req.body.password &&
             docs[i].firstName != req.body.firstName &&

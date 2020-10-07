@@ -111,7 +111,7 @@ export default {
                 })
                 return 
             }
-            await axios.put(`https//api.udb.kz/users/email/${localStorage.getItem('autorize-email')}`, Params)
+            await axios.put(`http//localhost:3000/users/email/${localStorage.getItem('autorize-email')}`, Params)
             .then( response => { this.res = response.data } )
             .catch(function (error) {
                 sweetalert2.fire({

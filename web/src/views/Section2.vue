@@ -36,7 +36,7 @@ export default {
     }),
     methods: {
         async allTexts() {
-            await axios.get(`https://api.udb.kz/texts/${6}`)
+            await axios.get(`http://localhost:3000/texts/${6}`)
             .then( response => {
                 this.result = response.data
             })

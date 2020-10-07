@@ -21,7 +21,7 @@ export default {
     name: 'OBJECTIVES',
     methods: {
         async refresh(phone) {
-            await axios.get('https://api.udb.kz/users/search/phone/' + phone)
+            await axios.get('http://localhost:3000/users/search/phone/' + phone)
             .then(response => {
                 localStorage.setItem('autorize-privilege', response.data.privilege)
                 localStorage.setItem('autorize-firstName', response.data.firstName),

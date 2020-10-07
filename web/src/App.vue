@@ -86,7 +86,7 @@ export default {
   },
   methods: {
     async VideoListGet() {
-      await axios.get('https://api.udb.kz/Videos')
+      await axios.get('http://localhost:3000/Videos')
       .then(response => {
         this.VideoList = response.data
       })
@@ -101,7 +101,7 @@ export default {
       localStorage.clear()
     },
     async refresh(phone) {
-      await axios.get('https://api.udb.kz/users/search/phone/' + phone)
+      await axios.get('http://localhost:3000/users/search/one/phone/' + phone)
       .then(response => {
         localStorage.setItem('autorize-privilege', response.data.privilege)
         localStorage.setItem('autorize-firstName', response.data.firstName),

@@ -16,14 +16,10 @@
                         <input type="radio" name="type" id="privilege" value="privilege">
                         <label for="phone">phone</label>
                         <input type="radio" name="type" id="phone" value="phone">
-                        <label for="email">email</label>
-                        <input type="radio" name="type" id="email" value="email">
                         <label for="firstName">firstName</label>
                         <input type="radio" name="type" id="firstName" value="firstName">
                         <label for="lastName">lastName</label>
                         <input type="radio" name="type" id="lastName" value="lastName">
-                        <label for="premiumDate">premiumDate</label>
-                        <input type="radio" name="type" id="premiumDate" value="premiumDate">
                         
                     </div>
                 </div>
@@ -34,17 +30,14 @@
                     >
                         <div class="name">
                             <div class="data lastName"> lastName: {{ index.lastName }} <input type="text" v-bind:class="'data-lastName-' + index._id" placeholder="new data"> </div> 
-                            <div class="data firstName"> firstName: {{ index.firstName }}  <input type="text" v-bind:class="'data-firstName-' + index._id" placeholder="new data"> </div> 
-                            <div class="data patronymic"> patronymic: {{ index.patronymic }}  <input type="text" v-bind:class="'data-patronymic-' + index._id" placeholder="new data"> </div>
+                            <div class="data firstName"> firstName: {{ index.firstName }}  <input type="text" v-bind:class="'data-firstName-' + index._id" placeholder="new data"> </div>
                         </div>
                         <div class="data-two">
-                            <div class="data email"> email: {{ index.email }} <input type="text" v-bind:class="'data-email-' + index._id" placeholder="new data"> </div>
                             <div class="data phone"> phone: {{ index.phone }} <input type="text" v-bind:class="'data-phone-' + index._id" placeholder="new data"> </div>
                             <div class="data password"> password: {{ index.password }} <input type="text" v-bind:class="'data-password-' + index._id" placeholder="new data"> </div>
                         </div>
                         <div class="data-three">
                             <div class="data privilege"> privilege: {{ index.privilege }} <input type="text" v-bind:class="'data-privilege-' + index._id" placeholder="new data"></div>
-                            <div class="data premiumDate"> premiumDate: {{ index.premiumDate }} <input type="text" v-bind:class="'data-premiumDate-' + index._id" placeholder="new data"></div>
                             <div class="data _id"> id: {{ index._id }} </div>
                         </div>
                         <div class="change" @click="change(index._id)">
@@ -107,7 +100,7 @@ export default {
                 index: index,
                 result: $(`.data-text-${key}`).val()
             }
-            await axios.put(`https://api.udb.kz/texts/${id}`, Params)
+            await axios.put(`http://localhost:3000/texts/${id}`, Params)
             .then( response => {
                 this.textRes = response.data
             })
@@ -121,13 +114,13 @@ export default {
             )
         },
         async search_text() {
-            await axios.get(`https://api.udb.kz/texts`)
+            await axios.get(`http://localhost:3000/texts`)
             .then( response => {
                 this.Texts = response.data
             })
         },
         async Valid() {
-            await axios.get(`https://api.udb.kz/users/search/phone/${localStorage.getItem('autorize-phone')}`)
+            await axios.get(`http://localhost:3000/users/search/phone/${localStorage.getItem('autorize-phone')}`)
             .then( response => {
                 if(response.data == "") {
                     window.location.href = 'https://udb.kz/'
@@ -148,7 +141,7 @@ export default {
             }
         },
         async search_user() {
-            await axios.get(`https://api.udb.kz/users/search/${$('input[name=type]:checked').val()}/${ $('.searching').val() }`)
+            await axios.get(`http://localhost:3000/users/search/${$('input[name=type]:checked').val()}/${ $('.searching').val() }`)
             .then( response => {
                 if(response.data == "") {
                     sweetalert2.fire({
@@ -219,7 +212,7 @@ export default {
                     return 
                 }
             }
-            await axios.put(`https://api.udb.kz/users/${id}`, Params)
+            await axios.put(`http://localhost:3000/users/${id}`, Params)
             .then( response => { this.result = response.data } )
             .catch(function (error) {
                 sweetalert2.fire({
@@ -239,7 +232,7 @@ export default {
             )
         },
         async refresh(phone) {
-            await axios.get('https://api.udb.kz/users/search/phone/' + phone)
+            await axios.get('http://localhost:3000/users/search/phone/' + phone)
             .then(response => {
                 localStorage.setItem('autorize-privilege', response.data.privilege)
                 localStorage.setItem('autorize-firstName', response.data.firstName),
@@ -271,8 +264,9 @@ export default {
     
     .wrapper
         width: 100vw
-        height: 260vh
+        height: auto
         background: #1D1D1D
+        padding-top: 7% !important
         .front
             max-width: 1440px
             height: 100%
@@ -291,9 +285,12 @@ export default {
             .top-content-wrapper
                 display: flex
                 flex-direction: column
-                justify-content: flex-end
+                justify-content: flex-start
                 align-items: center
-                height: 33%
+                min-height: 80vh
+                font-size: 2vh !important
+                input
+                    font-size: 1.6vh !important
             .search
                 display: flex
                 flex-direction: column
@@ -331,11 +328,10 @@ export default {
                         cursor: pointer
             .found-wrapper
                 width: 100%
-                height: 80%
-                
+                height: 100%
                 .found-user
                     width: 100%
-                    height: 10%
+                    height: 20vh
                     background-color: darken(#fff, 10%)
                     display: flex
                     justify-content: space-evenly
