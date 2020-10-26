@@ -62,6 +62,11 @@ Vue.use(VueRouter)
     path: '/PayInfo',
     name: 'PayInfo',
     component: () => import('../views/PayInfo.vue')
+  },
+  {
+    path: '/Certificate',
+    name: 'Certificate',
+    component: () => import('../views/Certificate.vue')
   }
 ]
 
