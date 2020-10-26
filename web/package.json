@@ -13,6 +13,7 @@
     "core-js": "^3.6.5",
     "inputmask": "^5.0.5",
     "jquery": "^3.5.1",
+    "pdfmake": "^0.1.68",
     "sweetalert2": "^10.0.2",
     "typeit": "^7.0.4",
     "vue": "^2.6.11",

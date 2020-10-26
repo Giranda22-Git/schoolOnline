@@ -43,7 +43,7 @@ export default {
     },
     methods: {
         async refresh(phone) {
-            await axios.get('http://localhost:3000/users/search/phone/' + phone)
+            await axios.get('http://localhost:3000/users/search/one/phone/' + phone)
             .then(response => {
                 localStorage.setItem('autorize-privilege', response.data.privilege)
                 localStorage.setItem('autorize-firstName', response.data.firstName),
@@ -93,13 +93,12 @@ export default {
                     })
                 }
                 else {
-                    this.res = response.data
+                    this.res = response.data[0]
                 }
             })
             .catch(function (error) {
                 console.log(error)
             })
-            
             if ( $('.auto-password').val() == this.res.password ) {
                 if (localStorage.getItem('autorize-phone') == this.res.phone)
                 {

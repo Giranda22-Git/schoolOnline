@@ -78,6 +78,13 @@
             <div class="startButton" @click="smsC">
                 Start
             </div>
+            <div class="videoObject"
+                v-for="video in Videos"
+                :key="video.name"
+            >
+                <div class="videoOwnerName">{{ video.owner }}</div>
+                <video controls :src="'http://localhost:3000/load/' + video.name"></video>
+            </div>
         </div>
     </div>
 </template>
@@ -92,9 +99,16 @@ export default {
         Users: null,
         result: null,
         Texts: null,
-        textRes: null
+        textRes: null,
+        Videos: []
     }),
     methods: {
+        async getVideo () {
+            await axios.get('http://localhost:3000/load')
+            .then(response => {
+                this.Videos = response.data
+            })
+        },
         async changeText(id, key, index){
             const Params = {
                 index: index,
@@ -160,12 +174,24 @@ export default {
             })
         },
         async smsC(){
-            await axios.post('https://smsc.kz/sys/send.php?login=Sanzharkin777&psw=Marsel19842013&phones=+77717773331&mes=Здравствуйте Айнур Омпанкызы курс стартует уже завтра пожалуйста авторизируйтесь на udb.kz, ваш логин: +7(771)777-3331, пароль: r4oshnf3')
+            let users = Array
+            await axios.get('http://localhost:3000/users/search/privilege/premium')
             .then(response => {
-                
+                users = response.data
             })
             .catch(error => {
                 console.log(error)
+            })
+            .then(inCache => {
+                users.forEach(async element => {
+                    await axios.post(`https://smsc.kz/sys/send.php?login=Sanzharkin777&psw=Marsel19842013&phones=${element.phone}&mes=Төреғали Төреалидің курсы басталды. udb.kz сайтына кіріңіз. Логин: ${element.phone}, пароль:${element.password}`)
+                    .then(response => {
+                    
+                    })
+                    .catch(error => {
+                        console.log(error)
+                    })
+                })
             })
         },
         async change(id) {
@@ -232,7 +258,7 @@ export default {
             )
         },
         async refresh(phone) {
-            await axios.get('http://localhost:3000/users/search/phone/' + phone)
+            await axios.get('http://localhost:3000/users/search/one/phone/' + phone)
             .then(response => {
                 localStorage.setItem('autorize-privilege', response.data.privilege)
                 localStorage.setItem('autorize-firstName', response.data.firstName),
@@ -243,7 +269,6 @@ export default {
         }
     },
     mounted() {
-        this.Valid()
         if (localStorage.getItem('autorize-phone') != null) {
             const user = {
                 firstName: localStorage.getItem('autorize-firstName'),
@@ -254,6 +279,7 @@ export default {
             this.refresh(user.phone)
             this.$emit("autorization", user)
         }
+        this.getVideo()
     }
 }
 </script>
@@ -261,7 +287,12 @@ export default {
 <style lang="sass" scoped>
     *
         outline: 1px solid red
-    
+    video
+        width: 100%
+    .videoOwnerName
+        font-size: 3vh
+        color: white
+        text-align: center
     .wrapper
         width: 100vw
         height: auto

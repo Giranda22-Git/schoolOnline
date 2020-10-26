@@ -4,6 +4,9 @@ const { ObjectID } = require('mongodb')
 const MongoClient = require('mongodb').MongoClient
 const ObjectId = require('mongodb').ObjectID
 const cors = require('cors')
+const path = require('path')
+const multer = require('multer')
+const fs = require('fs')
 const PORT = 3000
 
 const app = express()
@@ -17,6 +20,8 @@ app.use(cors(corsOptions))
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
+app.use(express.static(__dirname));
+app.use(multer({dest:"uploads"}).single("file"));
 
 init()
 
@@ -29,6 +34,48 @@ async function init(){
         console.log( `server started on URL: http://localhost:${PORT}` )
       })
     })
+
+    app.get("/load/:filename", (req, res) => {
+      db.collection('homeWorks').find().toArray((err, docs) => {
+        const resFile = docs.find(doc => {
+          if (doc.name === req.params.filename) return doc
+        })
+      
+        if(!resFile) res.sendStatus(404)
+      
+        res.sendFile(resFile.path)
+      })
+    })
+
+    app.get("/load", (req, res) => {
+      db.collection('homeWorks').find().toArray((err, docs) => {
+        res.send(docs)
+      })
+    })
+
+    app.post("/upload", function (req, res, next) {
+      let filedata = req.file
+      console.log(filedata)
+      
+      if(!filedata || filedata.size >= 100 * 1000 * 1000 || filedata.mimetype === 'application/x-msdownload'){
+        res.status(500).send("Ошибка при загрузке файла")
+      }
+      else{
+        fs.rename(filedata.path, `uploads/${req.body.owner + '_' + filedata.originalname}`, err => {
+          if (err) res.status(500).send("ошибка при присвоении имени файлу")
+        })
+        const resFile = {
+          name: req.body.owner + '_' + filedata.originalname,
+          path: path.join(__dirname, '/uploads/', req.body.owner + '_' + filedata.originalname),
+          size: filedata.size,
+          owner: req.body.owner
+        }
+        db.collection('homeWorks').insertOne(resFile, (err, result) => {
+          if (err) return res.sendStatus(500)
+          res.send(result)
+        })
+      }
+    });
 
     app.post('/users', (req, res) => {
       res.setHeader('Content-Type', 'application/json')
@@ -111,7 +158,7 @@ async function init(){
     app.get('/users/search/phone/:phone', (req, res) => {
       res.setHeader('Content-Type', 'application/json')
 
-      db.collection('users').findOne( { phone: req.params.phone } ).toArray((err, doc) => {
+      db.collection('users').find( { phone: req.params.phone } ).toArray((err, doc) => {
         if (err){ return res.sendStatus(500) }
         res.send(doc)
       })
