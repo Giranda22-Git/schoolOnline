@@ -71,7 +71,6 @@ export default {
     },
     watch: {
         autorizedData(newVal, oldVal){
-            this.autorizedData = newVal
             if(this.autorizedData.privilege != 'premium' || this.autorizedData.privilege != 'admin'){
                 this.isTheme = false
             } else {

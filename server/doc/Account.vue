@@ -14,7 +14,7 @@
                             :key="index._id"
                         >
                             <router-link
-                                v-if="autorizedData.privilege == 'admin' || autorizedData.privilege == 'premium$
+                                v-if="autorizedData.privilege == 'admin' || autorizedData.privilege == 'premium'"
                                 :to='{ path: `/watch/${ index._id }` }'
                                 @click="returnData(index)"
                             ></router-link>
